@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>爱好</title>
+    <style>
+
+        .hobby-item3{
+            width: 100px;
+            height: 100px;
+            border: 5px solid #19b9e7;
+            border-radius: 100%;
+            text-align: center;
+            font-size: 1.4em;
+            line-height: 100px;
+            display: inline-block;
+            margin: 30px 10px;
+            position: relative;
+            cursor: pointer;
+        }
+        .hobby-item3 input{
+            display: block;
+            width: 100px;
+            height: 100px;
+            border: 5px solid #19b9e7;
+            position: absolute;
+            top:-10px;
+            left: -5px;
+            cursor: pointer;
+            opacity: 0;
+        }
+        .hobby-item3 i{
+            width: 20px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            top: 60px;
+            left: 50px;
+            margin-left: -15px;
+           display: none;
+
+        }
+
+      p{
+          margin-top: 0;
+      }
+        .hobby-wrap{
+
+            width: 400px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+       .next-point{
+           width: 200px;
+           height: 50px;
+           position: relative;
+           left: 50%;
+           margin-left: -120px;
+       }
+
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="hobby-wrap">
+    <div class="hobby-item3"><p>励志</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>历史</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>小说</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>少儿</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>教辅</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>文学</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>旅游</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>生活</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>科技</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>美食</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>玄幻</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    <div class="hobby-item3"><p>虚构</p><i class="fa fa-lg fa-check"></i><input type="checkbox" class="hobby-check" ></div>
+    </div>
+    <button class="btn btn-lg btn-primary next-point">next</button>
+
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    (function () {
+        var hobby = $(".hobby-check");
+
+        hobby.change(function () {
+            var this_ = $(this);
+            var num =0;
+            $.each(hobby,function (i,item) {
+                if($(item).is(":checked"))
+                {
+                    num ++;
+                }
+            });
+            if(num > 3)
+            {
+                this_.prop("checked",false);
+                alert("最多选择三项");
+            }
+            else{
+                if(this_.is(":checked"))
+                {
+                    this_.parent().css({
+                        "background":"#f2dede"
+                    });
+                    this_.parent().find("i").show(100);
+                }
+                else {
+                    this_.parent().css({
+                        "background":"#fff"
+                    });
+                    this_.parent().find("i").hide(100);
+                }
+            }
+
+        });
+        $(".next-point").bind("click",function () {
+            var hobbyItem = "";
+            $.each(hobby,function (i,item) {
+                if($(item).is(":checked"))
+                {
+                    hobbyItem+="&"+$(item).parent().find("p").html();
+                }
+
+
+            });
+            $.ajax({
+                url:"../adduser/",
+                type:"POST",
+                dataType:"json",
+                data:{
+                    password:sessionStorage.getItem("password"),
+                    phone:sessionStorage.getItem("phone"),
+                    age:sessionStorage.getItem("age"),
+                    sex:sessionStorage.getItem("sex"),
+                    hobby:hobbyItem
+                },
+                success:function (d) {
+                   if(d.code == 'success'){
+                     var appid = d.appid;
+                     var data = d.data;
+                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid + "&" + data + "&response_type=code&scope=snsapi_userinfo&state=" + sessionStorage.getItem("phone") + "#wechat_redirect";
+                    //window.location.href = "https://www.baidu.com"
+                  }
+                    else {
+                        alert("注册失败，请重新注册");
+                    }
+
+                }
+
+
+
+            })
+
+        })
+
+    })();
+
+</script>
+</body>
+</html>

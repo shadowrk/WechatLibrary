@@ -1,0 +1,19 @@
+html,body,.container,.row{
+    width: 100%;
+    height: 100%;
+}
+
+.data-item{
+    text-align: center;
+
+    padding: 20px;
+    height: 25%;
+}
+.data-item i{
+    margin-top: 50%;
+    font-size: 4em;
+}
+.data-item p{
+    margin-top: 20px;
+    font-size: 2em
+}

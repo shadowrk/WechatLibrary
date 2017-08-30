@@ -1,0 +1,281 @@
+{% extends 'first.html' %}
+{% block title %}主页{% endblock %}
+{% block link %}
+<style>
+.roll-message
+      {
+          width:80%;
+          height: 60px;
+          background-color: #fff;
+          overflow: hidden;
+          position: relative;
+          border-radius: 6px;
+          margin-left: 0;
+
+      }
+      .roll-message-item{
+        margin: 10px 0;
+      }
+
+      .roll-message-content{
+          float:left;
+          height: 26px;
+          display: block;
+          text-align: center;
+          vertical-align: middle;
+          line-height: 26px;
+          /*margin-left: 10%;*/
+          margin-bottom: -2px;
+          font-size: 12px;
+          border-radius: 6px;
+          width: 80%;
+      }
+      .roll-message-header{
+          float:left;
+          display: inline-block;
+          height: 26px;
+          text-align: center;
+          vertical-align: middle;
+          line-height: 26px;
+          margin-left: 5px;
+          margin-bottom: -2px;
+          width: 40px;
+          font-size: 12px;
+          border-radius: 6px;
+          border: 1px solid #e7ab57;
+      }
+      .recommend-item{
+                   display: inline-block;
+               }
+               .recommend-item img{
+                   width: 84px;
+                   height: 84px;
+               }
+
+
+</style>
+{% endblock %}
+{% block content %}
+{% include 'top.html' %}
+
+       <div class="mid-carousel col-xs-12">
+          <div id="myCarousel" class="carousel slide">
+              <!-- 轮播（Carousel）项目 -->
+              <div class="carousel-inner">
+                  <div class="item active">
+                      <img src="/static/img/1.jpg" alt="First slide">
+
+                  </div>
+                  <div class="item">
+                      <img src="/static/img/2.jpg" alt="Second slide">
+
+                  </div>
+                  <div class="item">
+                      <img src="/static/img/3.jpg" alt="Third slide">
+
+                  </div>
+              </div>
+              <!-- 轮播（Carousel）导航 -->
+              <a class="carousel-control left" href="#myCarousel"
+                 data-slide="prev">&lsaquo;</a>
+              <a class="carousel-control right" href="#myCarousel"
+                 data-slide="next">&rsaquo;</a>
+          </div>
+      </div>
+       <div class="mid-content col-xs-12">
+       <div class="book-nav col-xs-12">
+                       <a href="../typelist/?tag=科技"><i class="fa fa-television fa-2x"><p>科技</p></i></a>
+                       <a href="../typelist/?tag=生活"><i class="fa fa-cutlery fa-2x"><p>生活</p></i></a>
+                       <a href="../typelist/?tag=小说"><i class="fa fa-book fa-2x"><p>小说</p></i></a>
+                       <a href="../typelist/?tag=文学"><i class="fa fa-graduation-cap fa-2x"><p>文学</p></i></a>
+                       <a href="../typelist/?tag=旅游"><i class="fa fa-university fa-2x"><p>旅游</p></i></a>
+                           <br>
+                           <br>
+
+                       <a href="../typelist/?tag=美食"><i class="fa fa-coffee fa-2x"><p>美食</p></i></a>
+                       <a href="../typelist/?tag=少儿"><i class="fa fa-child fa-2x"><p>少儿</p></i></a>
+                       <a href="../typelist/?tag=历史"><i class="fa fa-history fa-2x"><p>历史</p></i></a>
+                       <a href="../typelist/?tag=励志"><i class="fa fa-thumbs-o-up fa-2x"><p>励志</p></i></a>
+                       <a href="../typelist/?tag=教辅"><i class="fa fa-language fa-2x"><p>教辅</p></i></a>
+                   </div>
+                   <div class="roll-message">
+                             <div class="roll-message-wrap" >
+
+                   <div class="roll-message-item"><span class="roll-message-header">消息1</span><span class="roll-message-content"><a href="">怎样快速“有自己的想法”？</a></span></div>
+
+                   <div class="roll-message-item"><span class="roll-message-header">消息2</span><span class="roll-message-content"><a href="">解析冷暴力——残酷的精神虐待行为</a></span></div>
+
+               </div>
+
+               <div class="roll-message-wrap">
+
+                   <div class="roll-message-item"><span class="roll-message-header">消息3</span><span class="roll-message-content"><a href="">一位把生命献给舞台的艺术家</a></span></div>
+
+                   <div class="roll-message-item"><span class="roll-message-header">消息4</span><span class="roll-message-content"><a href="">过宠易“溺”</a></span></div>
+
+               </div>
+
+           </div>
+
+       <div class="book-list col-xs-12">
+            <div class="col-xs-4">
+              <a href="../bestseller/?type=day">
+                 <img src="/static/img/123.png" alt="" class="img-responsive img-circle center-block ">
+              </a>
+             </div>
+             <div class="col-xs-4">
+               <a href="../bestseller/?type=week">
+                  <img src="/static/img/123.png" alt="" class="img-responsive img-circle center-block ">
+               </a>
+              </div>
+              <div class="col-xs-4">
+                <a href="../bestseller/?type=month">
+                   <img src="/static/img/123.png" alt="" class="img-responsive img-circle center-block ">
+                </a>
+               </div>
+           <!-- <i class="fa fa-bar-chart fa-4x" aria-hidden="true" ></i>-->
+
+            </div>
+
+       </div>
+       <div class="mid-article col-xs-12">
+
+
+                <div class="col-xs-12 col-md-12">
+                        <img src="" alt="">
+                        <div class="caption demo">
+
+                            <p class="bg-success " >&nbsp;尽管我们被城市的钢筋丛林所束缚，但有空时不妨翻开书卷，通过地理学，去看看那绚丽缤纷的花花世界。 (墙头马上Hao评论)</p>
+                            <p class="bg-success ">&nbsp;读黎戈的感觉像三月。春和景明，幼草破土，万物生长。小雨淅沥，润物无声，却教春城怀碧玉，能使清风入怀来。 (浅草评论)</p>
+                            <p class="bg-success ">&nbsp;说来也怪，不知名的花草，哪怕每天见也形同陌路，一旦有了名字，仿佛就有了身份，顿时鲜活起来、亲切起来。就如这株绶草，在我知道它的名字的刹那，它俨然摇身成了我的一个老友。</p>
+
+                        </div>
+                    </div>
+
+       </div>
+       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                 <h4 class="modal-title" id="myModalLabel">今日推荐</h4>
+             </div>
+             <div class="modal-body">
+                 <div class="recommend">
+                 </div>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+             </div>
+         </div>
+     </div>
+ </div>
+ <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">消息</h4>
+            </div>
+            <div class="modal-body">
+             您有<span class="message-num"></span>条未读消息，请点击右上角信息按钮查看
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary submit-change" data-dismiss="modal">close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+      {% endblock %}
+{% block script %}
+<script>
+
+(function () {
+  // localStorage.clear();
+    $.ajax({
+      url: '../ajaxmessage/',
+      type: 'GET',
+      dataType: 'TEXT',
+      data: {},
+      success:function(data){
+
+        $.get('../getmescount/',function(data) {
+          var newnum = sessionStorage.getItem("num");
+            if(newnum !=data){
+                sessionStorage.setItem("num",data);
+                $(".message-num").html(data);
+                $('#myModal2').modal('show');
+            }
+
+        });
+      }
+    })
+    })();
+(function(){
+
+  rollBack();
+  recommendTimeAlter();
+})();
+     function rollBack() {
+         var timer = setInterval(function () {
+             $(".roll-message-wrap").eq(0).slideUp(600,function () {
+                 $(this).clone().appendTo($(this).parent()).slideDown();
+                 $(this).remove();
+             });
+         },40000);
+         var date = new Date().getTime();
+     }
+     function getRecommend(){
+         $.get("../getrecommend/",function (data) {
+             var html = "";
+             $.each(data,function (i,item) {
+                 html += '<div class="recommend-item">' +
+                     '<img src="'+item.image+'" alt="">' +
+                    //  '<p>'+item.title+'</p>' +
+                     '<p hidden class="getBookId">'+item.id+'</p>' +
+                     '</div>';
+
+             });
+             $(".recommend").append(html);
+             $('#myModal').modal('show');
+             $(".recommend-item").on("click",function () {
+                 var bookId = $(this).find(".getBookId").html();
+                 location.href = '../bookdetail/?id=' + bookId;
+             })
+         })
+     }
+     function  recommendTimeAlter() {
+         var deletTime = localStorage.getItem("deletTime");
+           $.get("../getfrequency/",function (data) {
+               var time = data;
+               if(time == 1){
+                   deletTime = 60*60*7*24;
+               }else if(time == 2){
+                   deletTime = 60*60*24;
+               }else deletTime = 0;
+           });
+           localStorage.setItem("deletTime",deletTime);
+         if(deletTime!=0){
+             var recommendTime = localStorage.getItem("recommendTime");
+             if(recommendTime == 1)
+             {
+                 recommendTime++;
+             }else if(recommendTime==null){
+                 var oldDate = new Date();
+                 localStorage.setItem("recommendTime",1);
+                 localStorage.setItem("oldDate",oldDate.getTime());
+                 getRecommend();
+             }else if(new Date().getTime() - localStorage.getItem("oldDate")>=deletTime)
+             {
+                 localStorage.removeItem("recommendTime");
+             }
+         }
+     }
+
+
+
+</script>
+
+ {% endblock %}

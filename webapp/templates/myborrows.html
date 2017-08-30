@@ -1,0 +1,159 @@
+{% extends 'first.html' %}
+{% block title %}
+借阅清单
+{% endblock %}
+{% block link %}
+<style>
+.QRcode-wrap img{
+   width:   70%;
+   height: 70%;
+   max-width: 70%;
+   max-height: 70%;
+   display: block;
+  margin: 0 auto;
+}
+.public-top{
+  height:40px;
+
+}
+.public-top p{
+    line-height: 40px;
+    font-size: 1em;
+    color: rgb(255,255,255);
+}
+.shop-pull{
+    margin-top:50px;
+    text-indent: 1em;
+    margin-bottom: 10px; 
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="public-top"><p>我的借阅</p></div>
+    <p class="shop-pull">借书清单 <a href="">>></a></p>
+    <hr \>
+    <div class="shop-content">
+
+    <div class="shop-count">
+        <div class="shop-allCheck pull-left"><input type="checkbox" id="shop-allCheck"><p>全选</p></div>
+        <button class="btn  btn-primary pull-right settlement-all">归还</button>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">二维码</h4>
+            </div>
+            <div class="modal-body">
+              <div class="QRcode-wrap">
+                  <img src="1.jpg" alt="myQRcode" id="QRcode">
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary submit-change" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+
+    (function () {
+
+        var num =0;
+        var len =$(".shop-checked").length;
+
+        $("#shop-allCheck").change(function () {
+
+            var allcheck= $("#shop-allCheck");
+            if(allcheck.is(":checked"))
+            {
+                $.each($(".shop-checked"),function (i,item) {
+                    $(item).prop("checked",true);
+                });
+            }
+            else
+            {
+                $.each($(".shop-checked"),function (i,item) {
+                    $(item).prop("checked",false);
+                });
+            }});
+        $.ajax({
+            url:"../getborrowslist/",
+            type:"GET",
+            async:false,
+            dataType:"json",
+            success:function (data) {
+                var html="";
+                $.each(data,function (i,item) {
+                  var date = item.borrowtime.split('-');
+                    date[1] = (parseInt(date[1])+12)%12 +1;
+                    date = date[0]+'-'+date[1]+'-'+date[2];
+                    html = html + '<div class="shop-item">'+
+                        '<div class="shop-check"><input type="checkbox" class="shop-checked" checked="true"></div>'+
+                        '<img src="'+item.bookname__image+'" alt="">'+
+                        '<div class="shop-info">'+
+                        '<h4>'+item.bookname__title+'</h4>'+
+                        '<p>'+item.bookname__author+'</p>'+
+                        '<p hidden class="count-book-id">'+item.bookname__id+'</p>'+
+                        '</div>'+
+                        '<div class="shop-delet">'+
+                        '<p style="color: red">'+date+'</p>'+
+                        '</div></div>';
+                })
+                $(".shop-content").append(html);
+                $(".shop-checked").bind("change",function () {
+                    $.each($(".shop-checked"),function (i,item) {
+                        if($(item).is(":checked"))
+                        {
+                            num++;
+                        }
+                    });
+                    if(num == 2)
+                    {
+                        $("#shop-allCheck").prop("checked",true);
+                    }
+                    else
+                    {
+                        $("#shop-allCheck").prop("checked",false);
+                    }
+                    num = 0;
+                });
+
+            }
+
+        });
+        $(".settlement-all").bind("click",function () {
+            var h = [];
+            $.each($(".shop-checked"),function (i,item) {
+                if($(item).is(":checked"))
+                {
+                    h.push($(item).parent().parent().find(".count-book-id").html());
+                }
+            });
+            $.ajax({
+                url:"../getcode/",
+                type:"GET",
+                data:{
+                  'bookIds':h,
+                  'stats': 1
+                },
+                dataType:"TEXT",
+                success:function (data) {
+                  url = '/static/qrcode/' + data + '.png'
+                  $("#QRcode").attr("src",url);
+                  $('#myModal').modal('show');
+                }
+
+            })
+          });
+          $('#myModal').on('hidden.bs.modal', function (e) {
+                  location.reload();
+        })
+    })();
+</script>
+{% endblock %}

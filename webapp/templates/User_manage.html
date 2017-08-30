@@ -1,0 +1,101 @@
+﻿{% extends 'first.html' %} {% block title %}个人中心{% endblock %} {% block link %}
+<style>
+  .my-point {
+    text-align: center;
+  }
+
+  .person-item {
+    margin: 20px 0;
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    line-height: 40px;
+    border: 1px solid #7fd4ed;
+  }
+
+  .person-item p {
+    font-size: 18px;
+    font-family: "微软雅黑";
+    text-align: left;
+    margin-left: 35px;
+  }
+
+  .person-item i {
+    float: left;
+    margin-top: 15px;
+    margin-left: 10px
+  }
+
+  .person-img .person-name {
+    display: block;
+    width: 100px;
+    position: absolute;
+    top: 150px;
+    left: 45%;
+    margin-left: -35px;
+    font-size: 1.3em;
+    font-family: "微软雅黑";
+  }
+
+  .person-img {
+    position: relative;
+    width: 100%;
+    height: 160px;
+  }
+
+  .person-img img {
+    position: absolute;
+    border: 2px solid #20a9ec;
+    border-radius: 100%;
+    top: 40px;
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    left: 50%;
+    cursor: pointer;
+  }
+</style>
+{% endblock %} {% block content %}
+<div style="width:100%;height:200px;background:#65c9b1;" class="person-img">
+  <a href="../person/">
+  <img src="/static/img/person.jpg" alt="">
+  <p class="person-name">{{ username }}</p>
+  </a>
+</div>
+<div class="person-content">
+  <div style="width:100%;height:120px;">
+    <a href="../reverse/">
+      <div style="width:33.33%;height:120px;float:left;border-right:1px solid #ababab;border-bottom:1px solid #ababab" class="my-point">
+        <center><i style="margin-top:35px;color:#f3c2de;" class="fa fa-recycle fa-3x"></i></center>
+        <center>
+          <p style="font-size:6px">我的预订</p>
+        </center>
+      </div>
+    </a>
+    <a href="../history/">
+      <div style="width:33.33%;height:120px;float:left;border-bottom:1px solid #ababab; border-right:1px solid #ababab;" class="my-point">
+        <center><i style="margin-top:35px;color:#f6efa1;" class="fa fa-lightbulb-o fa-3x"></i></center>
+        <center>
+          <p style="font-size:6px">历史</p>
+        </center>
+      </div>
+    </a>
+    <a href="../borrowslist/">
+      <div style="width:33.33%;height:120px;float:left; border-bottom:1px solid #ababab;" class="my-point">
+        <center><i style="margin-top:35px;color:#9de6be;" class="fa fa-history fa-3x"></i></center>
+        <center>
+          <p style="font-size:6px">我的借阅</p>
+        </center>
+      </div>
+    </a>
+
+  </div>
+
+  <a href="../settings/">
+    <div class="person-item person-forget">
+      <i style="color:#75756f;" class="fa fa-cog fa-lg"></i>
+      <p>设置</p>
+    </div>
+  </a>
+</div>
+{% endblock %}

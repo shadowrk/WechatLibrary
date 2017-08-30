@@ -1,0 +1,490 @@
+{% extends 'first.html' %}
+{% block title %}书籍详情{% endblock %}
+    <!-- <link rel="stylesheet" href="/static/css/loading.css"> -->
+    {% block link %}
+    <link rel="stylesheet" href="/static/css/replace-view.css">
+    <link rel="stylesheet" href="/static/css/reserve.css">
+    <style>
+        body{
+            width: 100%;
+
+        }
+       .animator-wrap{
+           position:absolute;
+           z-index: 10000;
+           width:  100%;
+           height: 2300px;
+           background-color: #33cc99;
+          display: none;
+
+
+       }
+        .fountainG{
+            text-align: center;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .public-comment{
+            background-color:rgba(58, 206, 120, 0.77);
+        }
+        .person-content{
+            width: 90%;
+            box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+        }
+
+    </style>
+    {% endblock %}
+
+
+{% block content %}
+{% include 'top.html' %}
+<div  class="col-sm-6 col-md-4" style="margin-bottom:70px;">
+	 <div style="position:relative">
+      <div style="margin-top:75px;margin-left:0px;position:relative;overflow:hidden">
+      <img  style="width:90px; height:120px;margin-left:3%; z-index:1; display:block;position: relative" src="#" id="book-img">
+	  </div>
+	    <div style="margin-top:-130px;position:relative; ">
+      <div class="thumbnail" style="margin-bottom:5px;">
+      <div class="caption" style="background:rgba(150,149,149,0.2)">
+	  <div style="margin-left:100px;">
+	   <h5 style="font-weight:600;" id="book-name"></h5>
+	   <h5 style="font-size:12PX;" >作者:<span id="book-author"></span></h5>
+       <h5 style="font-size:12PX;" >出版社:<span id="book-press"></span></h5>
+       <h5 style="font-size:12PX;">编号:<span  id="book-num"></span></h5>
+       <h5 style="font-size:12PX;">库存:<span  id="book-className"></span></h5>
+       <p hidden class="get-bookId"></p>
+
+	  </div>
+	  <div style="margin-top:0px;">
+      <p id="book-introduction"><span class="show-content"></span><span class="hide-tag" style="color:rgb(0,0,222);">展开全文</span><span class="hide-content" style="display: none"></span><span class="show-tag" style="color:rgb(0,0,222);display:none">收起全文</span></p>
+
+        <p id="book-introduction"></p>
+        <p><button style="height:34px;;width:80px;margin-right:95px;background:#fff" class="btn btn-default book-borrow">借阅</button>  <a href="#" style="height:34px;width:80px;background:#fff" class="book-reserve btn btn-default" role="button">预定</a></p>
+     </div>
+	 </div>
+    </div>
+  </div>
+  </div>
+
+   <div  style="margin:0 auto">
+    <div class="thumbnail">
+   <h5 style="margin-left:10px;"><strong>目录</strong></h5>
+      <hr>
+     <div style="margin-left:8px;margin-right:6px;" id="book-catalog">
+  </div>
+   </div>
+
+   </div>
+
+
+
+   <h5 ><strong>评论(<span class="book-comment-num">98</span>条)</strong><i class="extend">>></i></h5>
+   <button class="btn btn-primary btn-sm my-evaluation-button">评价</button>
+       <div class="my-evaluation">
+           <textarea class="my-evaluation-content"></textarea>
+           <button class="my-evaluation-submit">提交</button>
+       </div>
+       <div class="comment-wrap">
+           <!-- <div class="public-comment">
+               <div class="person-content">
+                   <img src="/static/img/1.jpg" alt="" class="person-img">
+                   <a href="" class="person-name">田雨丰：</a>
+                   <div class="person-content-close close"><i class="fa fa-close fa-sm"></i></div>
+                   <p class="public-content-text">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                   <div  class="content-time"><span>2017-7-25</span></div>
+                   <div class="content-replace replace">回复</div>
+               </div>
+               <div class="person-replace-view">
+                   <ul class="replace-view-list">
+                       <li><a href="">aa:</a><p>aaaaaaaaaaaa</p></li>
+                       <li><a href="">ss:</a><p>aaaaaaa</p></li>
+                       <li><a href="">www:</a><p>aaaaaa</p></li>
+                       <li><a href="">qqq:</a><p>aaaaaa</p></li>
+                       <li><a href="">eee:</a><p>aaaaaaaaa</p></li>
+                   </ul>
+               </div>
+               <form class="public-comment-replace">
+                   <textarea class="replace-content"></textarea>
+                   <button class="submit">完成</button>
+               </form>
+           </div> -->
+           <!-- <div class="public-comment">
+               <div class="person-content">
+                   <img src="1.jpg" alt="" class="person-img">
+                   <a href="" class="person-name">田雨丰：</a>
+                   <div class="person-content-close close"><i class="fa fa-close fa-sm"></i></div>
+                   <p class="public-content-text">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                   <div  class="content-time"><span>2017-7-25</span></div>
+                   <div class="content-replace replace">回复</div>
+               </div>
+               <div class="person-replace-view">
+                   <ul class="replace-view-list">
+                       <li><a href="">aa:</a><p>aaaaaaaaaaaa</p></li>
+                       <li><a href="">ss:</a><p>aaaaaaa</p></li>
+                       <li><a href="">www:</a><p>aaaaaa</p></li>
+                       <li><a href="">qqq:</a><p>aaaaaa</p></li>
+                       <li><a href="">eee:</a><p>aaaaaaaaa</p></li>
+                   </ul>
+               </div>
+               <form class="public-comment-replace">
+                   <textarea class="replace-content"></textarea>
+                   <button class="submit">完成</button>
+               </form>
+           </div>
+           <div class="public-comment">
+               <div class="person-content">
+                   <img src="1.jpg" alt="" class="person-img">
+                   <a href="" class="person-name">田雨丰：</a>
+                   <div class="person-content-close close"><i class="fa fa-close fa-sm"></i></div>
+                   <p class="public-content-text">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                   <div  class="content-time"><span>2017-7-25</span></div>
+                   <div class="content-replace replace">回复</div>
+               </div>
+               <div class="person-replace-view">
+                   <ul class="replace-view-list">
+                       <li><a href="">aa:</a><p>aaaaaaaaaaaa</p></li>
+                       <li><a href="">ss:</a><p>aaaaaaa</p></li>
+                       <li><a href="">www:</a><p>aaaaaa</p></li>
+                       <li><a href="">qqq:</a><p>aaaaaa</p></li>
+                       <li><a href="">eee:</a><p>aaaaaaaaa</p></li>
+                   </ul>
+               </div>
+               <form class="public-comment-replace">
+                   <textarea class="replace-content"></textarea>
+                   <button class="submit">完成</button>
+               </form>
+           </div> -->
+       </div>
+
+	 </div>
+	  <div  style="margin:0 auto;overflow:hidden">
+	   <div class="thumbnail">
+	   <div>
+	   <h5><b>相关阅读</h5>
+	   <hr>
+	   <div id="butong_net_left" style="overflow:hidden">
+     <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:30px">
+     <tr><td id="butong_net_left1" valign="top" align="center">
+     <table cellpadding="2" cellspacing="0" border="0">
+       <tr align="center" class="scroll-recommend">
+     </tr>
+   </table>
+   </td>
+   <td id="butong_net_left2" valign="top"></td>
+    </tr>
+   </table>
+   </div>
+ <script>
+ var speed=30//速度数值越大速度越慢
+ butong_net_left2.innerHTML=butong_net_left1.innerHTML
+ function Marquee3(){
+ if(butong_net_left2.offsetWidth-butong_net_left.scrollLeft<=0)
+ butong_net_left.scrollLeft-=butong_net_left1.offsetWidth
+ else{
+ butong_net_left.scrollLeft++
+ }
+ }
+ var MyMar3=setInterval(Marquee3,speed)
+ butong_net_left.onmouseover=function() {clearInterval(MyMar3)}
+ butong_net_left.onmouseout=function() {MyMar3=setInterval(Marquee3,speed)}
+ </script>
+	   </div>
+	  </div>
+	  </div>
+	</div>
+{% endblock %}
+
+
+{% block script %}
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"> </script>
+<script src="/static/js/scanqrcode.js"></script>
+<script>
+
+</script>
+<script>
+    var id = {{ bookid|safe }};
+    var bookid;
+
+
+    window.onload = function(){
+
+          //  var loading = $('.animator-wrap');
+           $.ajax({
+               url:"../getbookDetail/",
+               type:"GET",
+               data:{
+                   id:id,
+               },
+               dataType:"JSON",
+               success:function (data) {
+                   $("#book-name").html(data[0].title);
+                   $("#book-author").html(data[0].author);
+                   $("#book-className").html(data[0].count);
+                   $(".show-content").html(data[0].summary.substr(0,60));
+                   $(".hide-content").html(data[0].summary.substr(60));
+                   $(".get-bookId").html(data[0].id);
+                  //  $("#book-catalog").html(data.catalog);
+                  //  $("#book-comment").html(data.comment);
+                   $("#book-img").attr("src",data[0].image);
+                  //  $("#book-introduction").html(item.summary);
+                   $("#book-num").html(data[0].isbn13);
+                   $("#book-press").html(data[0].publisher);
+                  //  轮播图片加载
+                   var html = "";
+                  $.each(data[1],function (j,bookimg) {
+                                         html +='<td class="recommend-item">' +
+                                         '<img style="width:100px;height:80px;" src="'+bookimg.image+'" class="">' +
+                                         '<p hidden>'+bookimg.id+'</p>' +
+                                         '</td>';
+                               });
+                               $(".scroll-recommend").append(html);
+                               $(".recommend-item").on("click",function () {
+                                   location.href="../bookdetail/?id="+$(this).find("p").html();
+                               })
+
+
+               },
+               complete:function(){
+                  //  $("body").overflow = "scroll";
+                  //  loading.hide();
+               },
+               error:function (XMLHttpRequest,textStatus,throwError) {
+                     alert("错误"+textStatus);
+               }
+
+
+
+
+
+           })
+           bookBorrow();
+           bookReserveAlert();
+           extendReplace();
+    }
+    /*借书*/
+    function bookBorrow() {
+      $(".book-borrow").on("click",function () {
+                 $.ajax({
+                     url:"../borrowbook/",
+                     type:"GET",
+                     data: {
+                       bookid: id
+                     },
+                     dataType:"TEXT",
+                     success:function (text) {
+                          alert(text)
+                     },
+                     error:function(text){
+                     }
+
+                 })
+             });
+
+    }
+    /*关闭结束预定*/
+    function  closeReserve() {
+        $("i.close").bind("click",function () {
+            var wrap = $(this).parents(".reserve-wrap");
+            wrap.remove();
+        });
+    }
+    /*弹出结束预定界面*/
+    function  bookReserveAlert() {
+        $(".book-reserve").bind("click",function () {
+            var wrap  = '<div class="reserve-wrap">'+
+                '<div class="reserve-content">'+
+                '<i class="close fa fa-close fa-lg" style="font-size: 3em"></i>'+
+                '<div class="reserve-date">'+
+                '<label for="date" class="reserve-title">上门取书时间</label>'+
+                '<input id="date" type="date"  name="borrow-date">'+
+                '</div>'+
+                '<div class="borrow-book"><button class="book-confirm">预订</button></div>'+
+                '</div>'+
+                '</div>';
+            $(wrap).appendTo("body");
+            closeReserve();
+            bookReserveSuccess();
+            var h = document.body.scrollHeight;
+            $(".reserve-wrap").css({
+                height:h
+            })
+        });
+    }
+    /*书籍预定成功*/
+    function bookReserveSuccess(){
+        $(".book-confirm").on("click",function () {
+            $.ajax({
+                url:"../myreverse/",
+                type:"GET",
+                data:{
+                    date:$("input[type=date]").val(),
+                    bookId:$(".get-bookId").html()
+                },
+                dataType:"TEXT",
+                success:function () {
+                    alert('预定成功');
+
+                    $(".reserve-wrap").remove();
+
+                },
+                error:function (XMLHttprequest,textstatu) {
+                    alert('预定失败');
+                }
+            })
+        });
+    }
+    (function () {
+        function init() {
+            myEvaluation_Listen();
+            myEvaluationSubmit_Listen();
+            initElements()
+            commentEvent_Listen();
+             hideContent();
+        }
+        function  myEvaluationSubmit_Listen() {
+            var thing = $(".my-evaluation-submit");
+            thing.on("click",function () {
+                var val = thing.parent().children(".my-evaluation-content").val();
+                var html = "";
+
+                $.ajax({
+                  url: '../commentbook/',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {
+                    'value':$(".my-evaluation-content").val(),
+                    'bookId':$(".get-bookId").html()
+                  },
+                  success:function(item){
+                    $(".my-evaluation-content").val("");
+                    initElements();
+
+                  }
+                });
+
+            })
+
+        }
+        function myEvaluation_Listen() {
+            var my_evaluation_button = $(".my-evaluation-button");
+            var my_evaluation=$(".my-evaluation");
+            my_evaluation_button.bind("click",function () {
+                if(my_evaluation.is(":hidden"))
+                {
+                    my_evaluation.show();
+                    my_evaluation_button.html("收起");
+                }else{
+                    my_evaluation.hide();
+                    my_evaluation_button.html("评论");
+                }
+            })
+        }
+        function initElements() {
+            $.ajax({
+                url:"../getcomment/?id=" +id,
+                type:"GET",
+                dataType:"JSON",
+                async:false,
+                success:function (data) {
+                    var html = '';
+                    $.each(data,function (i,item) {
+                        html += '<div class="public-comment">'+
+                            '<div class="person-content">'+
+                            '<img src="'+item.src+'" alt="" class="person-img">' +
+                            '<a href="" class="person-name">'+item.phone+'：</a>'+
+                            // '<div class="person-content-close close"><i class="fa fa-close fa-sm"></i></div>'+
+                            '<p class="public-content-text">'+item.comment+'</p>'+
+                            '<div class="content-time"><span>'+item.time+'</span></div>'+
+                            '<div class="content-replace replace">回复</div>'+
+                            '</div>'+
+                            '<div class="person-replace-view">'+
+                            '<ul class="replace-view-list">';
+                        $.each(item.users,function (j,replace) {
+                            html += '<li><a href="">'+replace.phone+':</a><p>'+replace.comment+'</p></li>';
+                        })
+                        html += '</ul>' +
+                            '</div>' +
+                            '<form class="public-comment-replace">' +
+                            '<textarea class="replace-content"></textarea>' +
+                            '<button class="my_submit">完成</button>' +
+                            '</form>' +
+                            '</div>';
+                    });
+                    $(".comment-wrap").append(html);
+                }
+
+            })
+
+        }
+        function commentEvent_Listen() {
+            var list = $(".public-comment");
+            list.delegate(".close","click",function () {
+                $(this).parents(".public-comment").remove();
+            });
+            list.delegate(".replace","click",function () {
+                var content =  $(this).parents(".public-comment").find(".public-comment-replace");
+                if(content.is(":hidden"))
+                {
+                    $(this).html("收起");
+                    content.show();
+                }else {
+                    $(this).html("回复");
+                    content.hide();
+                }
+            });
+            // list.delegate(".my_submit","click",function () {
+            //     var value = $(this).prev(".replace-content").val();
+            //     $.ajax({
+            //       url: '../usercomment/',
+            //       type: 'POST',
+            //       dataType: 'json',
+            //       data: {
+            //         'phone':$(this).parents(".public-comment").find(".person-name").html(),
+            //         'bookId':$(".get-bookId").html(),
+            //         'value':$(this).parent().find('.replace-content').val()
+            //     },
+            //     success:function (data){
+            //       $(this).parent().find('.replace-content').val(" ");
+            //       var html = '<li><a href="javascript:;">'+data.src+'</a><p>'+$(this).parent().find('.replace-content').val()+'</p></li>';
+            //       $(html).appendTo($(this).parents(".public-comment").children(".replace-view-list"));
+            //
+            //     }
+            //     })
+            // });
+        }
+        init();
+    })();
+    function extendReplace() {
+     $(".extend").on("click",function () {
+         if($(".comment-wrap").is(":hidden")){
+             $(".comment-wrap").show();
+             $(this).html("<<");
+         }else{
+             $(".comment-wrap").hide();
+             $(this).html(">>");
+         }
+
+
+     })
+    }
+
+function hideContent(){
+  $(".hide-tag").on("click",function(){
+  $(".hide-content").show();
+  $(".show-tag").show();
+  $(this).hide();
+  })
+  $(".show-tag").on("click",function(){
+    $(".hide-content").hide()
+    $(".hide-tag").show();
+    $(this).hide();
+
+
+  })
+
+}
+
+
+ </script>
+
+{% endblock %}

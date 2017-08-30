@@ -1,0 +1,194 @@
+<html>
+<head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>乐众-注册</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="/static/css/form-elements.css">
+        <link rel="stylesheet" href="/static/css/style.css">
+
+    </head>
+    <body>
+        <!-- Top content -->
+      <div class="container">
+      <div class="form row">
+            <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form">
+                <h3 class="form-title">注册</h3>
+                <div class="col-sm-9 col-md-9">
+                    <div class="form-group">
+                        <i class="fa fa-lock fa-lg"></i>
+                        <input class="form-control required" type="password" placeholder="输入密码" id="password" name="password"/>
+                        <i class="login-inform"></i>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-lock fa-lg"></i>
+                        <input class="form-control required" type="password" placeholder="重复密码"id="conf_password" name="conf_password"/>
+                        <i class="login-inform"></i>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-tag fa-sm"></i>
+                        <input class="form-control required" type="text" placeholder="年龄" name="age" id="age"/>
+                        <i class="login-inform"></i>
+                    </div>
+
+                    <div class="form-group">
+                        <i class="fa fa-genderless fa-sm"></i>
+                        <input class="form-control required" type="text" placeholder="性别" name="sex" id="sex"/>
+                        <i class="login-inform"></i>
+                    </div>
+                    <div class="form-group">
+
+                    <div class="form-group">
+                        <input type="button" class="btn btn-success pull-right" id="submit" value="Sign Up" />
+                        <input type="button" class="btn btn-info pull-left" id="back_btn" value="Back"/>
+                    </div>
+                    </div>
+                </div>
+            </form>
+          <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+          <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+          <script>
+          function getLength(str) {
+              return str.replace(/[^\x00-\xff]/g,"xx").length;}
+          $(function () {
+              /********密码********/
+              $("#password").keyup(function () {
+                  var re=/[^A-Za-z0-9]/g;
+                  var $password = $("#password");
+                  var password = $password.val();
+
+                  if(re.test(password))
+                  {
+                      $password.parent().find(".login-inform").html("密码格式错误");
+                      $password.parent().addClass("has-error").removeClass("has-success");
+
+                  }
+                  else if(getLength(password)<9)
+                  {
+                      $password.parent().find(".login-inform").html("密码字符应大于9位");
+                      $password.parent().addClass("has-error").removeClass("has-success");
+                  }
+                  else if(getLength(password)>18)
+                  {
+                      $password.parent().find(".login-inform").html("密码字符应小于18位");
+                      $password.parent().addClass("has-error").removeClass("has-success");
+
+                  }
+                  else{
+                      $password.parent().find(".login-inform").html("");
+                      $password.parent().removeClass("has-error").addClass("has-success");
+
+                  }
+
+              })
+              $("#password").blur(function () {
+
+                  var $password = $("#password");
+                  var password = $password.val();
+                  if(password.length==0)
+                  {
+                      $password.parent().find(".login-inform").html(" ");
+                      $password.parent().removeClass("has-error has-success");
+                  }
+
+
+              })
+              /********重复密码********/
+              $("#conf_password").blur(function () {
+
+                  var $conf_password = $("#conf_password");
+                  var conf_password = $conf_password.val();
+                  var $password = $("#password");
+                  var password = $password.val();
+                  if(conf_password!=password)
+                  {
+
+                      $conf_password.parent().find(".login-inform").html("两次密码不一致");
+                      $conf_password.parent().addClass("has-error").removeClass("has-success");
+                  }
+                  else{
+                      $conf_password.parent().find(".login-inform").html("");
+                      $conf_password.parent().addClass("has-success").removeClass("has-error");
+                  }
+                  if(conf_password.length==0)
+                  {
+                      $conf_password.parent().find(".login-inform").html(" ");
+                      $conf_password.parent().removeClass("has-error has-success");
+                  }
+
+
+              })
+              /**********年龄*******/
+              $("#age").blur(function () {
+
+                  var $age = $("#age");
+                  var age = $age.val();
+                  var re=/[^0-9]/g;
+                  if(age<1||age>120||re.test(age))
+                  {
+
+                      $age.parent().find(".login-inform").html("年龄格式错误");
+                      $age.parent().addClass("has-error");
+                  }
+                  else{
+                      $age.parent().find(".login-inform").html("");
+                      $age.parent().addClass("has-success").removeClass("has-error");
+                  }
+                  if(age.length==0)
+                  {
+                      $age.parent().find(".login-inform").html("");
+                      $age.parent().removeClass("has-error has-success");
+                  }
+
+
+
+              })
+              /**********性别*******/
+              $("#sex").blur(function () {
+
+                  var re =  /^['男'|'女']$/g ;
+                  var $sex = $("#sex");
+                  var sex = $sex.val();
+                  if(!re.test(sex)||getLength(sex)>2)
+                  {
+
+                      $sex.parent().find(".login-inform").html("性别格式错误");
+                      $sex.parent().addClass("has-error");
+                  }
+                  else{
+                      $sex.parent().find(".login-inform").html("");
+                      $sex.parent().addClass("has-success").removeClass("has-error");
+                  }
+                  if(sex.length==0)
+                  {
+                      $sex.parent().find(".login-inform").html("");
+                      $sex.parent().removeClass("has-error has-success");
+                  }
+
+
+
+              })
+              /**********爱好**********/
+              $("input#submit").click(function () {
+                  var password = $("#password").val();
+                  var age = $("#age").val();
+                  var sex = $("#sex").val();
+                  sessionStorage.setItem("password",password);
+                  sessionStorage.setItem("age",age);
+                  sessionStorage.setItem("sex",sex);
+                  window.location.href = "../hobby/";
+
+              })
+          })
+          </script>
+
+      </div>
+        </div>
+        </body>
+        </html>

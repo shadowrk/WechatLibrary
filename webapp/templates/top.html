@@ -1,0 +1,186 @@
+<div class="top-nav col-xs-12" >
+        <div class="nav-container" >
+           <div class="left-message">
+                <p><i style="color:rgba(71,111,102,0.5)" class="fa fa-columns qrcode"></i></p>
+            </div>
+            <form action="../booklist/" method="post">
+             <input type="text" id="search-input" placeholder="&nbsp;&nbsp;作者/书名/类型" name="searchValue" autocomplete="off">
+             <button type="submit" class="input-submit"><i class="fa fa-sm fa-arrow-up"></i></button>
+            </form>
+        <div class="right-message">
+            <i  style="color:rgba(71,111,102,0.5)" class="fa fa-commenting-o message"></i>
+        </div>
+      <div class="search-suggest col-xs-8 col-xs-offset-1">
+                <ul id="search-result">
+                </ul>
+            </div>
+            <div class="message-form">
+                <div class="message-form-close"><i class="fa fa-return fa-mail-reply"></i></div>
+                <ul class="message-content">
+                </ul>
+
+            </div>
+    </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"> </script>
+    <script src="/static/js/scanqrcode.js"></script>
+    <script>
+
+    $(function () {
+        $(".message").bind("click",function () {
+            $(".message-form").show(500);
+
+        })
+        $(".message-form-close").bind("click",function () {
+            $(".message-form").hide(500);
+        })
+    });
+    </script>
+
+     <script>
+         $(function () {
+             initElements();
+             var book_id;
+
+             $("#search-input").bind("keyup",function () {
+                 $("#search-result").html("");
+                 var input =  $("#search-input");
+                 var searchText = $("#search-input").val();
+                 if(searchText==null || searchText=="" || searchText==" "){
+                 }
+                 else if(searchText!=null||searchText!=""||searchText!=" ")
+                    {
+                      $.get("../ajaxgetBook?name="+searchText,function (data) {
+                          var data = data;/*data.AS.Results[0].Suggests*/
+                          var html = "";
+                          for(var i=0;i<data.length;i++)
+                          {
+                              html=html+'<li class="search-item">'+
+                                  // '<img src="'+data[i].src+'" alt="" class="search-img">'+
+                                  '<p class="search-bookName">'+data[i].title+'</p>'+
+                                  '<p hidden class="search-book-id">'+data[i].id+'</p>'+
+                                  '</li>';
+                          }
+                          $("#search-result").html(html);
+                          $(".search-suggest").show();
+
+                      },'json');
+                    }
+
+             });
+            //  $(document).bind("click",function () {
+            //      $(".search-suggest").hide();
+            //  });
+             $(document).delegate("li","click",function () {
+                 var keyword = $(this).find(".search-bookName").html();
+                 $("#search-input").val(keyword);
+             });
+         });
+         function  initElements() {
+
+                  $(".right-message").on("click",function(){
+                    if(!$(".message-form").is(":hidden")){
+                      bookReminder();
+                    }
+
+                  })
+
+              }
+
+         /*消息提醒*/
+              function bookReminder() {
+                  $.get("../getmessage/", function (value) {
+                      var data = value;
+                        var html="";
+                      $.each(data, function (i, val) {
+
+                            html += '<li class="message-item">' +
+                                '<i class="fa fa-close fa-sm message-close"></i>' +
+                                '<p style="line-height:16px;">' + val.mes + '</p>' +
+
+                                '</li>';
+                      })
+                    $(".message-content").append(html);
+                    $(".message-close").bind("click",function () {
+                        $(this).parent().remove();
+                    })
+                      // $('#message-content').html(html)
+                  })
+              }
+  //             /*还书提醒*/
+  // 　　 function bookReminder() {
+  //      $.get("......?", function (value) {
+  //          var data = JSON.parse(value);
+  //          var newDate = new Date();
+  //              var html ="";
+  //              $.each(data, function (i, item) {
+  //                  var oldDate = new Date(item.date);
+  //                  var deletTime = newDate.getTime() - oldDate.getTime();
+  //                  var deletDay = Math.ceil(deletTime / (24 * 60 * 60));
+  //                  if (deletDay <= 7) {
+  //                       html += '<li class="message-item">' +
+  //                          '<i class="fa fa-close fa-sm message-close"></i>' +
+  //                          '<h5>还书提醒</h5>' +
+  //                          '<p>您借阅的书《' + item.bookName + '》还有' + deletDay + '天将要到期</p>' +
+  //                          '</li>';
+  //                  }
+  //              });
+  //              $(".message-content").append(html)
+  //
+  //      })
+  //  }
+  //  /*图书预定提醒*/
+  //  function bookRemandoom() {
+  //     $.ajax({
+  //         url:"....",
+  //         type:"POST"
+  //         data:{},
+  //         dataType:"JSON",
+  //         success:function (data) {
+  //             var html ="";
+  //             var newDate = new Date();
+  //             $.each(data,function (i,item) {
+  //                 var oldDate = new Date(item.data);
+  //                 if(oldDate.getTime() - newDate.getTime() < 3*24*60*60){
+  //                     html += '<li class="message-item">' +
+  //                         '<i class="fa fa-close fa-sm message-close"></i>' +
+  //                         '<h5>取书提醒</h5>' +
+  //                         '<p>您预定的书《' + item.bookName + '》请尽快上门取书，过期则预定失效</p>' +
+  //                         '</li>';
+  //                 }
+  //             }); $(".message-content").append(html)
+  //
+  //         }
+  //
+  //     })
+  //  }
+  //  /*图书评论提醒*/
+  //  function commentReminder() {
+  //      $.ajax({
+  //          url:"....",
+  //          type:"POST"
+  //          data:{},
+  //          dataType:"JSON",
+  //          success:function (data) {
+  //              var html ="";
+  //              var newDate = new Date();
+  //              $.each(data,function (i,item) {
+  //                      html += '<li class="message-item">' +
+  //                          '<i class="fa fa-close fa-sm message-close"></i>' +
+  //                          '<h5>评论消息提醒</h5>' +
+  //                          '<p class="comment">刚刚有人评论了你在图书《'+item.bookName+'》<span class="getBookId">'+item.id+'</span>中的留言，快去查看吧</p>' +
+  //                          '</li>';
+  //
+  //              });
+  //              $(".message-content").append(html);
+  //              $(".comment").on("click",function () {
+  //                  location.href = "..........?bookId="+$(this).find(".getBookId").html();
+  //              })
+  //          }
+  //
+  //      })
+  //  }
+
+
+     </script>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang=ch>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        .recommend-item{
+            display: inline-block;
+        }
+        .recommend-item img{
+            width: 84px;
+            height: 84px;
+        }
+    </style>
+</head>
+<body>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">忘记密码</h4>
+            </div>
+            <div class="modal-body">
+            <div class="recommend">
+                 <lable for="oldPassword">原始密码:</lable><br />
+                <input type="password" id="oldPassword"><br />
+                <lable for="newPassword">新密码:</lable><br />
+                <input type="password" id="newPassword"><br />
+                <lable for="newPasswordrepete">重复新密码:</lable><br />
+                <input type="password" id="newPasswordrepete"><br />
+                <button type="button" class="btn btn-primary">提交</button>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary submit-change" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+    $('#myModal').modal('show');
+    (function () {
+        confirmPassword();
+        $(".submit-change").on("click",function () {
+           $.post(".........",{'password':$("#oldPassword").val()},function (data) {
+              if(data){
+                  $.post("........",$("#newPassword").val());
+              }
+           });
+
+        });
+    })();
+    function  confirmPassword() {
+        $("#newpassword").bind("keyup",function () {
+            var re=/[^A-Za-z0-9]/g;
+            var $password = $("#newpassword");
+            var password = $password.val();
+            if(re.test(password))
+            {
+                $password.parent().find(".login-inform").html("密码格式错误");
+                $password.parent().addClass("has-error").removeClass("has-success");
+                isOk[0] =false;
+            }
+            else if(getLength(password)<9)
+            {
+                $password.parent().find(".login-inform").html("密码字符应大于9位");
+                $password.parent().addClass("has-error").removeClass("has-success");
+                isOk[0] =false;
+            }
+            else if(getLength(password)>18)
+            {
+                $password.parent().find(".login-inform").html("密码字符应小于18位");
+                $password.parent().addClass("has-error").removeClass("has-success");
+                isOk[0] =false;
+            }
+            else{
+                $password.parent().find(".login-inform").html("");
+                $password.parent().removeClass("has-error").addClass("has-success");
+                isOk[0] =true;
+                IsBtnAvalible();
+            }
+
+        })
+        $("#newpassword").bind("blur",function () {
+            var $password = $("#newpassword");
+            var password = $password.val();
+            if(password.length==0)
+            {
+                $password.parent().find(".login-inform").html(" ");
+                $password.parent().removeClass("has-error has-success");
+                isOk[0] =false;
+            }
+        })
+        $("#newpasswordrepete").bind("blur keyup",function () {
+
+            var $conf_password = $("#newpasswordrepete");
+            var conf_password = $conf_password.val();
+            var $password = $("#newpassword");
+            var password = $password.val();
+            if(conf_password!=password)
+            {
+
+                $conf_password.parent().find(".login-inform").html("两次密码不一致");
+                $conf_password.parent().addClass("has-error").removeClass("has-success");
+                isOk[1] =false;
+            }
+            else{
+                $conf_password.parent().find(".login-inform").html("");
+                $conf_password.parent().addClass("has-success").removeClass("has-error");
+                isOk[1] =true;
+                IsBtnAvalible();
+
+            }
+            if(conf_password.length==0)
+            {
+                $conf_password.parent().find(".login-inform").html(" ");
+                $conf_password.parent().removeClass("has-error has-success");
+                isOk[1] =false;
+            }
+
+
+        })
+    }
+
+</script>
+</body>
+</html>

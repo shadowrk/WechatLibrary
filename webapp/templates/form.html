@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>图书分析</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/top.css">
+    <style>
+        body{
+            background-color: #65c9b1;
+            opacity: 0.6;
+        }
+        .form-view-content{
+            padding: 40px;
+            width: 700px;
+            height: 800px;
+            border: 1px solid #0C528D;
+        }
+        .form-view-content img{
+            width: 600px;
+            height: 600px;
+
+        }
+        .form-view-content p{
+            display: inline-block;
+            text-indent: 2em;
+        }
+        button:active{
+            background: #336699;
+        }
+       .form-content{
+           margin-top: px;
+       }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <div class="btn-group">
+          <button class="btn btn-primary btn-1" >最近月份借书量分析</button>
+          <button class="btn btn-primary btn-2" >分类图书借阅量分析</button>
+      </div>
+      <!-- <div class="form-view-content">
+          <img src="img/1.jpg" alt="">
+          <div class="form-content"><p>lalallalal</p></div>
+
+      </div> -->
+      <div id="container1">
+
+      </div>
+      <!-- <div id="container2">
+
+      </div> -->
+
+  </div>
+
+  <script src="/static/js/jquery.min.js"></script>
+  <!-- <script src="https://img.hcharts.cn/highcharts/highcharts.js"></script> -->
+    <script src="/static/js/highcharts.js"></script>
+  <!-- <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script> -->
+    <script src="/static/js/exporting.js"></script>
+  <!-- <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script> -->
+<script>
+    $(document).ready(function() {
+      $(".btn-1").click(function(){
+        var x = [];//X轴
+        var y = [];//Y轴
+        var xtext = [];//X轴TEXT
+        var color = ["gray","pink","red","blue","yellow","green","gray","pink","red","blue"];
+        $.ajax({
+          type:'GET',
+          url:'../getdata/?stats=1',//请求数据的地址
+          dataType: 'json',
+          success:function(json){
+              // var json = eval("("+data+")");
+              var s = 1;
+              for(var key in json){
+                  json[key].y = json[key].count; //给Y轴赋值
+                  xtext[key] = json[key].name;//给X轴TEXT赋值
+                  json[key].color= color[key];
+              }
+                  chart.series[0].setData(json);//数据填充到highcharts上面
+          },
+          error:function(e){
+          }
+        });
+        var chart = new Highcharts.Chart({
+          chart:{
+              renderTo:'container1',
+              type:'column' //显示类型 柱形
+          },
+          title:{
+              text:'销量分布图' //图表的标题
+          },
+          xAxis:{
+              categories:xtext
+          },
+          yAxis:{
+              title:{
+                  text:'数量' //Y轴的名称
+              },
+          },
+          series:[{
+              name:"类型"
+          }]
+        });
+      });
+      $(".btn-2").click(function(){
+        var x = [];//X轴
+        var y = [];//Y轴
+        var xtext = [];//X轴TEXT
+        var color = ["gray","pink","red"];
+        $.ajax({
+          type:'GET',
+          url:'../getdata/?stats=2',//请求数据的地址
+          dataType: 'json',
+          success:function(json){
+              // var json = eval("("+data+")");
+              // var s = 1;
+              // for(var key in json){
+              //     json[key].y = json[key].count; //给Y轴赋值
+              //     xtext = json[key].name;//给X轴TEXT赋值
+              //     json[key].color= color[key];
+              // }
+                  chart.series[0].setData(json);//数据填充到highcharts上面
+          },
+          error:function(e){
+          }
+        });
+        var chart = new Highcharts.Chart({
+          chart:{
+              renderTo:'container1',
+              type:'pie' //显示 类型
+          },
+          title:{
+              text:'月份销量分布图' //图表的标题
+          },
+          xAxis:{
+              categories:xtext
+          },
+          yAxis:{
+              title:{
+                  text:'数量' //Y轴的名称
+              },
+          },
+          tooltip: {
+              headerFormat: '{series.name}<br>',
+              pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+          },
+          plotOptions: {
+              pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                      enabled: true,
+                      format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                      style: {
+                          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                      }
+                  }
+              }
+          },
+          series:[{
+              name:"月份"
+          }]
+        });
+      });
+ <!--      function  f(data){
+        $('#container1').highcharts({
+             chart: {
+                 plotBackgroundColor: null,
+                 plotBorderWidth: null,
+                 plotShadow: false
+             },
+             title: {
+                 text: '最近的三月借书量统计'
+             },
+             tooltip: {
+                 headerFormat: '{series.name}<br>',
+                 pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+             },
+             plotOptions: {
+                 series: {
+                   animation: false
+                 },
+                 pie: {
+                     allowPointSelect: true,
+                     cursor: 'pointer',
+                     dataLabels: {
+                         enabled: true,
+                         format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                         style: {
+                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                         }
+                     }
+                 }
+             },
+             series: [{
+                 type: 'pie',
+                 name: '借书量占比',
+                 data: data
+             }]
+         });
+      } -->
+
+      // function f1(data){
+      //   $('#container1').highcharts({
+      //       chart: {
+      //           type: 'line'
+      //       },
+      //       title: {
+      //           text: '分类借书量'
+      //       },
+      //       subtitle: {
+      //           text: '数据来源: '
+      //       },
+      //       xAxis: {
+      //           categories: ['科技', '生活', '小说', '文学', '旅游', '美食', '少儿', '励志', '历史', '教辅']
+      //       },
+      //       yAxis: {
+      //           title: {
+      //               text: '借书量'
+      //           }
+      //       },
+      //       plotOptions: {
+      //           series: {
+      //             animation: false
+      //           },
+      //           line: {
+      //               dataLabels: {
+      //                   enabled: true          // 开启数据标签
+      //               },
+      //               enableMouseTracking: false // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+      //           }
+      //       },
+      //       series: [{
+      //           name: '借书量',
+      //           data: data
+      //       }]
+      //   });
+      // }
+    })
+
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>归还确认</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/top.css">
+</head>
+<body>
+<div class="content">
+    <div class="public-top"><p>还书审核</p></div>
+    <p class="shop-pull"></p>
+    <hr />
+    <div class="shop-content">
+
+    </div>
+    <div class="shop-count">
+
+        <button class="btn  btn-primary pull-right settlement-all">确认还书</button>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+    var bookIds = {{ bookIds|safe }};
+    var phone = {{ phone|safe }};
+    $.ajax({
+        url:"../getdetails/",
+        type:"GET",
+        data: {
+          'bookIds': bookIds,
+          'stats' : 1
+        },
+        dataType:"json",
+        success:function (data) {
+            var h1 = '用户名：' + phone;
+            $(".shop-pull").html(h1);
+            var html="";
+            date = new Date();
+            $.each(data,function (i,item) {
+                html +='<div class="shop-item">'+
+                    '<img src="'+item.image+'" alt="" style="width:60px;height: 60px;">'+
+                    '<div class="shop-info">'+
+                    '<h4>'+item.title+'</h4>'+
+                    '<p>'+item.author+'</p>'+
+                    '<p hidden class="count-book-id">'+item.id+'</p>'+
+                    '</div>'+
+                     '</div>';
+            })
+            $(".shop-content").append(html);
+          }
+    });
+    $(".settlement-all").on("click",function () {
+        $.get("../confirm/?stats=1&id=" + bookIds + '&phone=' + phone,function () {
+            alert("审核成功");
+            // location.reload();
+        })
+    })
+</script>
+
+</body>
+
+</html>

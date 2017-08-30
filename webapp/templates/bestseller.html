@@ -1,0 +1,166 @@
+{% extends 'first.html' %}
+
+{% block title %}
+畅销榜
+{% endblock %}
+{% block link %}
+  <style>
+    .milky {
+      font-size: 16px;
+    }
+
+
+
+    <!--表格-table-->#tbody-tr .media-table-tr {
+      padding-top: 10px
+    }
+
+    #media-table {
+      border: 0px solid #E8E8E8;
+      border-left: none;
+      padding: 10px 10px
+    }
+
+    #media-table {
+      border-top: 2px solid #6ff0d0;
+      border-left: 1px solid #E8E8E8;
+      border-right: 1px solid #E8E8E8;
+      border-bottom: 1px solid #E8E8E8;
+    }
+
+    #media-table-thead {
+      padding-top: -20px;
+      border: 1px solid #E8E8E8;
+    }
+
+    #media-table-thead .media-table-tr {
+      border-top-style: 4px dotted FireBrick;
+    }
+
+    #media-table-thead-hr {
+      padding-bottom: -40px
+    }
+
+    #media-table .media-table-tr {
+      color: grey
+    }
+
+
+    #tbody-tr img {
+      float: left;
+      padding: 5px
+    }
+
+    #tbody-tr p {
+      float: left;
+      padding: 5px
+    }
+
+    #tbody-tr i {
+      float: left;
+      padding: 10px
+    }
+
+    #tbody-tr .td-p {
+      float-left;
+      padding-left: 0px;
+      padding-top: 20px
+    }
+
+    #tbody-tr {
+      border: 1px solid #E8E8E8;
+      row: 0
+    }
+
+
+    .fontset {
+      margin: 0;
+      text-align: center;
+      font: bold 20px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #fff;
+      text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+      -webkit-transition: .2s all linear;
+    }
+
+    .normalfont {
+      text-align: center;
+      font-size: 14px;
+      color: #65c9b1
+    }
+  </style>
+{% endblock %}
+{% block content %}
+  <div>
+    <div style="width:100%;height:50px;background:#65c9b1;position: fixed; top: 0px; z-index: 10;">
+      <div style="vertical-align: middle; margin-top: 15px; text-align: center;"><span style="color:rgba(255,255,255,0.8);">畅销榜</span></div>
+    </div>
+    <div class="col-xs-12" style="margin-top:50px;margin-bottom:50px;padding-left:5%;padding-right:5% ">
+      <table id="media-table" class="table table-striped table-responsive">
+        <thead id="media-table-thead">
+          <tr class="media-table-tr">
+            <th style="padding-left:30px;"> </th>
+              <th style="padding-left:30px;"> </th>
+            <th style="padding-left:10px;">书名</th>
+            <th style="padding-left:10px;">作者</th>
+            <th style="padding-left:10px;">出版社</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-tr">
+
+        </tbody>
+      </table>
+
+
+
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+<script>
+(function () {
+     $.get("../getbestseller/?type="+{{ type|safe }},function (data) {
+              var html = "";
+              var num = 0;
+         $.each(data,function (i,item) {
+                         num++;
+                         if(num<=3)
+                         {
+                           console.log(num);
+                             html += '<tr class="media-table-tr" height="40px" >'+
+                                 '<td class="td fontset" style="padding-top:30px;">'+num+'</td>'+
+                                 '<td>'+
+                                 '<img src="'+item.image+'" width="60px" height="80px">'+
+
+                                 '</td>'+
+                                  '<td style="padding-top:28px;"><p class="td-p">'+item.title+'</p></td>'+
+                                 '<td style="padding-top:28px;">'+item.author+'</td>'+
+                                 '<td style="padding-top:28px;">'+item.publisher+'</td>'+
+                                 '<td style="padding-top:28px;" class="book_id" hidden>'+item.id+'</td>'+
+                                 '</tr>';
+                         }
+                         else{
+                             html += '<tr class="media-table-tr" bgcolor="#ffffff"" >'+
+                                 ' <td class="normalfont" style="padding-top:20px;">'+num+'</td>'+
+                                //  '<td>'+
+                                // '</td>'+
+                                 '<td>'+
+                                 '<img src="'+item.image+'" width="60px" height="80px">'+
+
+                                 '</td>'+
+                                  '<td style="padding-top:28px;"><p class="td-p">'+item.title+'</p></td>'+
+                                 '<td style="padding-top:28px;">'+item.author+'</td>'+
+                                 '<td style="padding-top:28px;">'+item.publisher+'</td>'+
+                                 '<td style="padding-top:28px;" class="book_id" hidden>'+item.id+'</td>'+
+                                 '</tr>';
+                         }
+
+         })
+         $("tbody#tbody-tr").append(html);
+         $(".media-table-tr").bind("click",function () {
+              window.location.href="../bookdetail/?id="+$(this).find(".book_id").html();
+         });
+     })
+    })();
+
+</script>
+{% endblock %}

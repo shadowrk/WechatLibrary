@@ -1,0 +1,101 @@
+﻿{% extends 'first.html' %}
+{% block title %}个人信息{% endblock %}
+{% block link %}
+    <style>
+   .headstyle{
+   
+   width:100%;
+   height:50px;
+   background:#65c9b1;
+   position: fixed; 
+   top: 0px; 
+   z-index: 10;" 
+   }
+   .headediv{
+   vertical-align: middle; 
+   margin-top: 15px; 
+   text-align: center;
+   
+   }
+   .messgecolor{
+   color:rgba(0,0,0,0.2);
+   }
+   
+   body{
+   font-size:10px;
+   }
+   .titlecolor
+   {
+   color:rgba(0,0,0,0.5);   
+   }
+    </style>
+{% endblock %} {% block content %}
+                             <!-------------头部---------------->
+ <div >
+      <div class="headstyle">
+        <div class="headediv"><span style="color:rgba(255,255,255,0.8);">个人信息</span></div>
+     </div>
+	 <div class="col-xs-12"  >
+	 <div  class="col-sm-7 col-md-3" style="margin-top:70px;">
+	 
+	 <ul class="list-group">
+  <li class="list-group-item titlecolor" >
+    <img class="right-message"  style="width:30px;height:30px;" src="/static/img/7.png"></p>
+    <b>头像</b>
+  </li>
+   <li class="list-group-item titlecolor">
+    <p class="right-message messgecolor " ><b>田雨丰</b></p>
+  <b>昵称</b>
+  </li>
+   <li class="list-group-item titlecolor">
+    <p class="right-message messgecolor person-phone"><b></p>
+   <b>手机号</b>
+  </li>
+   <li class="list-group-item titlecolor">
+    <p class="right-message messgecolor person-age"></p>
+   <b>年龄</b>
+  </li>
+   <li class="list-group-item titlecolor">
+    <p class="right-message messgecolor person-sex"></p>
+    <b>爱好</b>
+  </li>
+   <li class="list-group-item titlecolor">
+    <p class="right-message messgecolor"></p>
+   修改个人资料
+  </li>
+   <li class="list-group-item titlecolor">
+    <p class="right-message messgecolor"></p>
+    修改密码</b>
+  </li>
+</ul>
+	 
+	 
+	 </div>
+	 
+	 
+	
+	 </div>
+	 
+	</div>
+{% endblock %}
+
+
+{% block script %}
+ 
+<script>
+   (function() {
+    $.ajax({
+      url: "../getuser/",
+      type: "GET",
+      dataType: "json",
+      success: function(data) {
+        // $(".person-name").html(data.name);
+        $(".person-phone").html(data[0].user);
+        $(".person-age").html(data[0].age);
+        $(".person-sex").html(data[0].sex);
+        // $(".my-img").prop("src", data.img);
+      }
+    })
+  })();
+</script>
+{% endblock %}

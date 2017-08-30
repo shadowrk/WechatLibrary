@@ -1,0 +1,55 @@
+.reserve-wrap{
+    width: 100%;
+    background-color: #343434;
+    opacity: 1;
+    position: absolute;
+    top:0;
+    left: 0;
+    font-size:16px;
+    z-index: 200;
+
+}
+.reserve-content{
+    margin: 0 auto;
+    position: relative;
+    width: 80%;
+    height: 400px;
+    font-size: 16px;
+    top: 30%;
+    background-color: #9de6be;
+    opacity: .8;
+    padding: 20px;
+
+}
+.reserve-content input{
+    margin-top: 20px;
+    height: 36px;
+    width: 200px;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    display: block;
+    font-size:16px;
+}
+.reserve-date{
+    margin-top: 50px;
+    text-align: center;
+
+}
+.borrow-book button{
+    position: absolute;
+    width: 180px;
+    height: 36px;
+    bottom: 80px;
+    margin-left: -90px;
+    left: 50%;
+    font-size:20px;
+    line-height: 20px;
+}
+.reserve-title{
+    font-size: 2em;
+    margin-bottom: 80px;
+}
+.close{
+    font-size: 3em;
+}

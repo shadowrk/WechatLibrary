@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/top.css">
+    {% block link %} {% endblock %}
+    <style>
+      .qrcode{
+        cursor: pointer;
+      }
+    </style>
+</head>
+<body>
+
+   {% block content %}
+   {% endblock %}
+    <div class="bottom-nav col-xs-12">
+          <ul>
+              <a href="../home/"><i  style=" margin-top: 2px;"  class="fa fa-home"><p>首页</p></i></a>
+              <a href="../finder/"><i style=" margin-top: 4px;" class="fa fa-telegram"><p>发现</p></i></a>
+              <a href="../borrowbooks/"><i style=" margin-top: 2px;" class="fa fa-cart-plus"><p>书单</p></i></a>
+              <a href="../usermanage/"><i style=" margin-top: 4px;" class="fa fa-user-circle-o"><p>个人</p></i></a>
+          </ul>
+      </div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

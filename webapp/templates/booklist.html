@@ -1,0 +1,176 @@
+{% extends 'first.html' %}
+{% block title %}图书列表{% endblock %}
+{% block content %}
+{% include 'top.html' %}
+<!-- <div class="top-nav col-xs-12">
+    <div class="nav-container">
+      <div class="left-message">
+           <p><i style="color:rgba(71,111,102,0.5)" class="fa fa-columns qrcode"></i></p>
+       </div>
+
+
+        <input type="text" id="search-input" value="">
+
+        <div class="right-message">
+            <a href=""> <i style="color:rgba(71,111,102,0.5)" class="fa fa-commenting-o message"></i></a>
+        </div>
+        <div class="search-suggest col-xs-8 col-xs-offset-1">
+            <ul id="search-result">
+                <li class="search-item">
+                    <img src="" alt="" class="search-img">
+                    <p class="search-bookName">书名</p>
+                </li>
+                <li class="search-item">
+                    <img src="" alt="" class="search-img">
+                    <p class="search-bookName">书名</p>
+                </li>
+                <li class="search-item">
+                    <img src="" alt="" class="search-img">
+                    <p class="search-bookName">书名</p>
+                </li>
+                <li class="search-item">
+                    <img src="" alt="" class="search-img">
+                    <p class="search-bookName">书名</p>
+                </li>
+
+            </ul>
+        </div>
+        <div class="message-form">
+            <div class="message-form-close"><p><<</p></div>
+            <ul class="message-content">
+                <li class="message-item">
+                    <i class="fa fa-close fa-sm message-close"></i>
+                    <h5>还书提醒1</h5>
+                    <p>您节约的书。。。还有7天将要到期</p>
+                </li>
+                <li class="message-item">
+                    <i class="fa fa-close fa-sm message-close"></i>
+                    <h5>还书提醒2</h5>
+                    <p>您节约的书。。。还有7天将要到期</p>
+                </li>
+                <li class="message-item">
+                    <i class="fa fa-close fa-sm message-close"></i>
+                    <h5>还书提醒3</h5>
+                    <p>您节约的书。。。还有7天将要到期</p>
+                </li>
+                <li class="message-item">
+                    <i class="fa fa-close fa-sm message-close"></i>
+                    <h5>还书提醒4</h5>
+                    <p>您节约的书。。。还有7天将要到期</p>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div> -->
+
+<div class="allborrow">
+</div>
+    <div class="book-item-loading">
+    <img src="/static/img/loading.gif" alt="loading" class="loading-img">
+    </div>
+<div class="return-top"></div>
+{% endblock %}
+{% block script %}
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"> </script>
+<script src="/static/js/scanqrcode.js"></script>
+<script>
+    $("#search-input").val({{ searchValue|safe }});
+    var name = $("#search-input").val();
+    var itemNum = 0;
+    var curitemNum = itemNum;
+    var loadingComplete =false;
+  function bookRequest() {
+      $.ajax({
+          async: false,
+          url: "../getbookList/",
+          type: "GET",
+          data:{
+              start:itemNum,
+              name:name
+
+          },
+          dataType: "json",
+          beforeSend: function () {
+
+             $(".book-item-loading").show(100);
+
+          },
+          success: function (data) {
+              var html = "";
+              $(".book-item-loading").hide(100);
+              $.each(data, function (i, item) {
+                      html = html + '<div class="borrowdiv">' +
+                      '<div class="media-left">' +
+                      '<img style="width:90px;height:120px;margin-top:3px;margin-left:3px;" class="media-object" src="' + item.image + '" alt="...">' +
+                      '</div>' +
+                      '<div class="media-body">' +
+                      '<h4 class="media-heading" style="margin-top:3px"><strong>' + item.title + '</strong></h4>' +
+                      // '<p>作者:' + item.author + '</p>' +
+                      // '<p>ISBN: ' + item.isbn13 + '</p>' +
+                      '<p hidden class="book_Id">' + item.id + '</p>'+
+                      '</div>'+
+                      '</div>';
+              });
+              $(".allborrow").append(html);
+              itemNum+=data.length;
+              $(".book-item-loading").hide(100);
+          }
+      });
+  }
+
+
+    (function () {
+        bookRequest();
+        $(".borrowdiv").bind("click", function () {
+           window.location.href = "../bookdetail?id=" + $(this).find(".book_Id").html()
+        });
+        $(window).scroll(function () {
+                   var height = document.documentElement.clientHeight;
+
+                   if($(window).scrollTop()>height)
+                   {
+                            console.log($(window).scrollTop());
+                          console.log(height);
+                       $(".return-top").show();
+                   }
+                   else{
+                       $(".return-top").hide();
+                   }
+                  if(!loadingComplete)
+                   {
+                   var scrollTop = $(this).scrollTop();
+                   var scrollHeight = $(document).height();
+                   var windowHeight = $(this).height();
+
+                       if (scrollTop + windowHeight >= scrollHeight) {
+                           if(curitemNum != itemNum)
+                           {
+                               curitemNum = itemNum;
+                               bookRequest();
+                           }
+                           else{
+
+                                var h= '<div class="max-loading">已加载全部内容</div>';
+                                $("body").append(h);
+                                loadingComplete = true;
+                           }
+                       }
+                   }
+
+
+
+               });
+
+               $(".return-top").click(function () {
+                   $('body,html').animate({scrollTop:0},1000);
+
+               })
+
+    })();
+
+
+
+
+</script>
+{% endblock %}

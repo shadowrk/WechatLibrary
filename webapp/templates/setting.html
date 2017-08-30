@@ -1,0 +1,139 @@
+{% extends 'first.html' %}
+{% block title %} 设置 {% endblock %}
+{% block link %}
+<style>
+  body,
+  html {
+    width: 100%;
+    height: 100%;
+    font-family: 微软雅黑;
+  }
+
+  .setting-content {
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    height: auto;
+  }
+
+  .setting-info {
+    font-size: 16px;
+    line-height: 20px;
+    text-align: left;
+    display: inline-block;
+    margin-left: 15px;
+  }
+
+  .setting-item {
+    width: 80%;
+    height: 40px;
+    line-height: 40px;
+    margin: 40px auto;
+    background-color: #f6f9ec;
+    border-radius: 8px;
+  }
+
+  .icon-open {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    line-height: 24px;
+    margin-left: 30px;
+    cursor: pointer;
+  }
+
+  .select-content li {
+    float: left;
+    margin-left: 20px;
+  }
+
+  .person-setting {
+    height: 40px;
+    width: 100%;
+    background-color: #65c9b1;
+    text-align: center;
+    line-height: 40px;
+  }
+
+  .person-setting-info {
+    font-size: 16px;
+    color: #f5f5f5;
+  }
+
+  .exit-account {
+    position: relative;
+    left: 50%;
+    margin-left: -80px;
+  }
+
+  #rate-select {
+    margin-left: 20px;
+  }
+
+  .setting-item a {
+    color: #333;
+  }
+</style>
+{% endblock %}
+{% block content %}
+  <div class="person-setting">
+    <p class="person-setting-info">设置</p>
+  </div>
+  <div class="setting-content">
+    <div class="setting-item">
+      <p class="setting-info">消息提醒</p>
+      <i class="fa fa-lg fa-toggle-off icon-open " style="display: none;"></i>
+      <i class="fa fa-lg fa-toggle-on icon-open "></i>
+    </div>
+    <div class="setting-item">
+      <p class="setting-info">设置推荐频率</p>
+      <select name="" id="rate-select">
+            <option value ="0">从不</option>
+            <option value ="1">偶尔</option>
+            <option value="2">经常</option>
+        </select>
+    </div>
+    <div class="setting-item">
+      <a href="">
+        <p class="setting-info">关于我们<i class="fa fa-chevron-right" style="margin-left: 10px;" aria-hidden="true"></i></p>
+      </a>
+    </div>
+    <div class="setting-item">
+      <a href="">
+        <p class="setting-info">意见反馈<i class="fa fa-chevron-right" style="margin-left: 10px;" aria-hidden="true"></i></p>
+      </a>
+    </div>
+
+    <button class="btn btn-lg btn-primary exit-account">退出当前账户</button>
+{% endblock %}
+
+{% block script %}
+<script>
+  (function() {
+    var check;
+       $.get("../getfrequency/",function (data) {
+           check = parseInt(data);
+           $("#rate-select option").get(check).setAttribute("selected",true);
+       });
+
+    $(".fa-toggle-off").bind("click", function() {
+      $(this).hide();
+      $(".fa-toggle-on").show();
+    })
+    $(".fa-toggle-on").bind("click", function() {
+      $(this).hide();
+      $(".fa-toggle-off").show();
+    })
+    $("#rate-select").on("change",function () {
+        $.post("../setfrequency/",{'time':$("#rate-select option:selected").val()});
+    })
+    $(".exit-account").click(function(){
+      $.get('../logout/', function() {
+        window.location.href = "../login/"
+        /*optional stuff to do after getScript */
+      });
+    })
+
+  })();
+</script>
+{% endblock %}

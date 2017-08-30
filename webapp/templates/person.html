@@ -1,0 +1,119 @@
+{% extends 'first.html' %}
+{% block title %}个人信息{% endblock %}
+{% block link %}
+<style>
+  .person-img {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    background-color: #65c9b1;
+  }
+
+  .person-img img {
+    position: absolute;
+    border: 2px solid #20a9ec;
+    border-radius: 100%;
+    top: 20px;
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    left: 50%;
+  }
+
+  .person-img .person-name {
+    display: block;
+    width: 100px;
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    margin-left: -25px;
+    font-size: 1.3em;
+    font-family: "微软雅黑";
+  }
+
+  .person-item {
+    margin: 20px 0;
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    line-height: 40px;
+    border: 1px solid #7fd4ed;
+  }
+
+  .person-item p {
+    font-size: 18px;
+    font-family: "微软雅黑";
+    text-align: left;
+    margin-left: 35px;
+  }
+
+  .person-item i {
+    float: left;
+    margin-top: 15px;
+    margin-left: 10px
+  }
+
+  .person-info {
+    margin-top: 20px;
+    width: 100%;
+    height: 100px;
+  }
+
+  .person-info p {
+    display: block;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    border-bottom: 1px solid #75756f;
+  }
+
+  .person-info a {
+    text-decoration: none;
+    display: block;
+    background-color: #ababab;
+  }
+
+  .person-info a:hover {
+    background-color: #999999;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="person-img">
+  <img src="/static/img/person.jpg" alt="" class="my-img">
+  <p class="person-name">田雨丰</p>
+</div>
+<div class="person-info">
+  <p>&nbsp;&nbsp;&nbsp;手机号:<span class="person-phone">17863957609</span></p>
+  <p>&nbsp;&nbsp;&nbsp;年龄:<span class="person-age">20</span></p>
+  <p>&nbsp;&nbsp;&nbsp;性别:<span class="person-sex">男</span></p>
+</div>
+<a href="">
+  <div class="person-item person-forget">
+    <i style="color:#75756f;" class="fa fa-paste fa-lg"></i>
+    <p>忘记密码</p>
+  </div>
+</a>
+<a href="">
+  <div class="person-item person-forget">
+    <i style="color:#75756f;" class="fa fa-address-book fa-lg"></i>
+    <p>修改个人资料</p>
+  </div>
+</a>
+{% endblock %} {% block script %}
+<script>
+  (function() {
+    $.ajax({
+      url: "../getuser/",
+      type: "GET",
+      dataType: "json",
+      success: function(data) {
+        // $(".person-name").html(data.name);
+        $(".person-phone").html(data[0].user);
+        $(".person-age").html(data[0].age);
+        $(".person-sex").html(data[0].sex);
+        // $(".my-img").prop("src", data.img);
+      }
+    })
+  })();
+</script>
+{% endblock %}

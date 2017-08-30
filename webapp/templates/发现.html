@@ -1,0 +1,216 @@
+{% extends 'first.html' %}
+
+{% block title %}发现{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="/static/css/loading.css">
+    <style>
+	div{
+	word-wrap:break-word;
+	}
+      .myh5{
+	  margin-top:-5px;
+	  margin-left:-3px;
+	  font-size:15px
+	  }
+	  .divset
+	  {
+	  background-color:#fff;
+	  height:126px;
+	  overflow:hidden;
+	  margin-bottom:18px;
+	  margin-left:-10px;
+	  margin-right:-10px;
+	  }
+	  #tdlimit{
+	  width:79px;
+	  height:100px;
+	  }
+	  .img1
+	  {
+
+	   width:70px;
+	  height:90px
+	  }
+	  .myp{
+	  font-size:12px;
+	  margin-top:3px;
+	  }
+	  hr{
+	  margin-top:0px;
+	  margin-bottom:0px;
+	  }
+
+
+
+
+
+.box10{
+ font-size: 11px;
+
+    color: #4A4A4A ;
+    text-align: center;
+    margin: 20px auto;
+    width: 90%;
+    padding: 10px;
+    position:relative;
+    background: -webkit-gradient(linear, 100% 100%, 50% 10%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 1px 1px 4px rgba(0,0,0, 0.1);
+    -webkit-border-bottom-right-radius: 60px 5px;
+
+}
+.box10:before{
+    content: '';
+    width: 98%;
+    z-index:-1;
+    height: 100%;
+    padding: 0 0 1px 0;
+    position: absolute;
+    bottom:0; right:0;
+    background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f9f9f9), color-stop(.1,#fff));
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 1px 1px 8px rgba(0,0,0, 0.1);
+    -webkit-border-bottom-right-radius: 60px 5px;
+    -webkit-transform: skew(2deg,2deg)
+                        translate(3px,8px)
+}
+.box10:after{
+    content: '';
+    width: 98%;
+    z-index:-1;
+    height: 98%;
+    padding: 0 0 1px 0;
+    position: absolute;
+    bottom:0; right:0;
+    background: -webkit-gradient(linear, 0% 20%, 0% 100%, from(#f3f3f3), to(#f6f6f6), color-stop(.1,#fff));
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 0px 0px 8px rgba(0,0,0, 0.1);
+    -webkit-transform: skew(2deg,2deg)
+                        translate(-1px,2px)
+}
+
+
+
+p{
+    margin-top: 15px;
+    text-align: justify;
+}
+
+h1{
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+
+    </style>
+{% endblock %}
+{% block content %}
+                             <!-------------头部---------------->
+ <div >
+      <div style="width:100%;height:50px;background:#65c9b1;position: fixed; top: 0px; z-index: 10;" >
+        <div style="vertical-align: middle; margin-top: 15px; text-align: center;"><span style="color:rgba(255,255,255,0.8);">发现</span></div>
+     </div>
+	 <div  class="col-xs-12"   >
+
+ <div  class="col-sm-6 col-md-4" style="margin-bottom:70px;">
+ <!-------------------------摘抄------------------------------->
+ <div class="box10" style="margin-top:70px;">
+       <h1>阅读摘抄</h1>
+        <p>
+世界先爱了我，我不能不爱它，只记花开不记人，你在花里，如花在风中。那一年，花开得不是最好，可是还好，我遇见你，那一年，花开得好极了，好像专是为了你，那一年，花开得很迟，还好，有你。
+       </p>
+	   <p style="margin-left:60%;margin-top:0px;">---汪曾祺《人间草木》</p>
+</div>
+	    <!--<div class="thumbnail" style=" margin-bottom:20px; ">
+
+	  <div>
+	   <h5><b>好书推荐</b></h5>
+	   <hr>
+	   <div id="butong_net_left" style="overflow:hidden">
+     <table cellpadding="0" cellspacing="0" border="0">
+     <tr><td id="butong_net_left1" valign="top" align="center">
+     <table cellpadding="2" cellspacing="0" border="0">
+     <tr align="center">
+    <td  id="tdlimit"><img class="img1" src="img/1.jpg"></td>
+    <td id="tdlimit"><img class="img1" src="img/2.jpg"></td>
+    <td  class="tdlimit"><img class="img1" src="img/3.jpg"></td>
+   <td id="tdlimit"> <img  class="img1" src="img/5.jpg"></td>
+    <td  id="tdlimit"><img  class="img1" src="img/5.jpg"></td>
+   </tr>
+   </table>
+   </td>
+   <td id="butong_net_left2" valign="top"></td>
+    </tr>
+   </table>
+   </div>
+   </div>
+     </div>-->
+	  <!-------------------------分类------------------------------->
+	 <div  >
+   <p><b>最受喜爱</b></p>
+  <div  >
+	 <tr >
+    <td  id="tdlimit"><img class="img1" src="/static/img/1.jpg"></td>
+    <td id="tdlimit"><img class="img1" src="/static/img/2.jpg"></td>
+    <td  class="tdlimit"><img class="img1" src="/static/img/3.jpg"></td>
+   <td id="tdlimit"> <img  class="img1" src="/static/img/5.jpg"></td>
+
+   </tr>
+   </div>
+	 </div>
+	 <div>
+	 <p><b>评论最热</b></p>
+	 <div>
+	 <tr align="center">
+    <td  id="tdlimit"><img class="img1" src="/static/img/1.jpg"></td>
+    <td id="tdlimit"><img class="img1" src="/static/img/2.jpg"></td>
+    <td  class="tdlimit"><img class="img1" src="/static/img/3.jpg"></td>
+	<td  class="tdlimit"><img class="img1" src="/static/img/3.jpg"></td>
+   </tr>
+	 </div>
+	 </div>
+	  <!-------------------------评论文章------------------------------->
+ <div  class="alert"  style="background-color:#ebeaea;margin-top:20px;" >
+  <div class="alert divset"  style="margin-top:-10px;">
+  <h5 class="myh5"><b>冯唐的书里有哪些值得深究的道理？</b></h5>
+  <hr > </hr>
+  <p class="myp">你看现在的很多小说，前100页读起来还可以，再往下看，就感觉作者撑不下去了。” 有不少人评价冯唐为当代文坛中的异类，在他的作品中经常是以一种充满着物质性的口语方式在叙述，以一种绵密饶舌的喋喋不休给予写作以丰富的构成。对这种观点，他并不在意。“我觉得我是正统，我是在尝试接续司马迁、《世说新语》和张岱的文脉，并试图探索汉语的极限可能。如果说我是异类，是因为现在这个文坛是异类。” 有意思的是，冯唐自己身处商界，但他从不写当下流行的商战小说。他认为人手一本的书一定有问题。“虽然不能说流行的东西没有价值，但要想达到所谓的流行，作者必须要迎合了很多东西。每个人擅长的东西不一样，我还是去写适合自己的东西吧。我只想做一个在一定范围内有影响的畅销书作家。”
+  </div>
+   <div class="alert divset"  style="margin-top:-10px;">
+  <h5 class="myh5"><b>人间草木太匆匆</b></h5>
+  <hr > </hr>
+  <p class="myp">
+
+一 漂泊在别处
+
+衰败破碎，但又自由浪漫的时代--往来于远东水域各大城市--焦虑不安的心，不论出家还是在家，到死都没有放下
+
+二 伤心人别有怀抱
+
+虚构尘世出身、虚构沙门出身、虚构情感经历--有情无情，亦真亦幻--真正的不幸是不知道自己为何不幸
+
+三 人生幻美如斯
+
+自我诗化--审美境界的三重体验:"失重"、"放纵"、"落空"
+
+四 大丈夫决绝生死
+
+自觉从容又断然决绝地舍弃--在彻底的绝望中获得灵魂的安宁--无所依恋也无所畏惧--不可与人的浪漫与残酷
+
+五 信仰者"虽存犹殁"
+
+了悟生死莫若活着经历死亡-持戒苦行把生命变成苦难--苦难中的幸福
+
+六 做得十分像人的人
+
+宗教人生的三重体验:"决绝"、"持戒"、"圆觉"--让我们的灵魂感到温暖与震撼的殉道者--活出"人"的样子
+  </div>
+   </div>
+
+	  </div>
+	  </div>
+	</div>
+{% endblock %}

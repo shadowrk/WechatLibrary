@@ -1,0 +1,49 @@
+body{
+    background-image: url("/static/img/bg.jpg");
+}
+html,body,.content{
+    width: 100%;
+    height: 100%;
+}
+.btn-bottom{
+    width: 100%;
+
+}
+.content{
+    position: relative;
+}
+
+.head-title{
+    -webkit-transition: alll 0.5s ease-in 0.2s;
+    -moz-transition: alll 0.5s ease-in 0.2s;
+    -ms-transition: alll 0.5s ease-in 0.2s;
+    -o-transition: alll 0.5s ease-in 0.2s;
+    transition: alll 0.5s ease-in 0.2s;
+}
+.head-title:hover{
+    height: 120px;
+    width: 120px;
+    padding: 30px;
+}
+.head-title{
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    padding: 10px;
+    border: 5px solid #20a9ec;
+    border-radius: 100%;
+    margin: 50px auto;
+}
+.second-title{
+  text-align: center;
+    font-size: 24px;
+}
+.btn-bottom{
+    position:absolute;
+    bottom: 48px;
+
+}
+.btn-bottom button{
+    width: 50%;
+    height: 48px;
+}

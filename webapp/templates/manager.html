@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang=ch>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body{
+            background-color: #65c9b1;
+        }
+        .manage-top{
+
+            width:80%;
+            height: 200px;
+            margin: 0 auto;
+            margin-top: 10%;
+
+        }
+
+        #manage-btn{
+            width: 100%;
+            height: 80px;
+            margin: auto;
+            position: fixed;
+            bottom: -34px;
+
+        }
+        #manage-btn button{
+            width: 50%;
+        }
+
+        .title-top{
+            border: 1px solid #336699;
+            -webkit-border-radius:100%;
+            -moz-border-radius:100%;
+            border-radius:100%;
+            width: 140px;
+            height: 140px;
+            text-align: center;
+            line-height: 140px;
+            margin: 0 auto;
+            font-size: 2em;
+        }
+        .manage-top p{
+            text-align: center;
+            font-size: 1em;
+            font-family: 微软雅黑;
+        }
+    </style>
+</head>
+<body>
+        <div class="manage-top">
+            <div class="title-top">乐众</div>
+             <p>管理员端</p>
+        </div>
+       <div class="btn-group" id="manage-btn">
+           <button class="btn btn-primary btn-lg qrcode">借书管理</button>
+           <button class="btn btn-error  btn-lg qrcode">还书管理</button>
+       </div>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"> </script>
+<script src="/static/js/scanqrcode.js"></script>
+</body>
+</html>

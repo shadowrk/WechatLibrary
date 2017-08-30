@@ -1,0 +1,150 @@
+<html>
+<head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>验证手机号</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="/static/css/form-elements.css">
+        <link rel="stylesheet" href="/static/css/style.css">
+
+    </head>
+    <body>
+        <!-- Top content -->
+      <div class="container">
+      <div class="form row">
+            <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form">
+                <h3 class="form-title">手机验证</h3>
+                <div class="col-sm-9 col-md-9">
+                    <div class="form-group">
+                        <i class="fa fa-phone fa-lg"></i>
+                        <input class="form-control required" id="phone" type="text" placeholder="手机号" name="phone"/>
+                        <i class="login-inform"></i>
+                    </div>
+                    <div>
+                    <div class="form-group">
+                            <i class="fa fa-lock fa-sm" ></i>
+                            <input  style="width:50%;"class="form-control required" type="text" placeholder="动态密码" id="code" name="code"/>
+                      <input type="button" style="margin-left:60%;margin-top:-40px;" id="getCode" class="btn btn-default" value="获取动态密码"/>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="button" class="btn btn-success pull-right" id="submit" value="Sign Up "/>
+                        <input type="button" class="btn btn-info pull-left" id="back_btn" value="Back"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+
+            </form>
+        </div>
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script>
+          $(function () {
+              var InterValObj; //timer变量，控制时间
+              var count = 60; //间隔函数，1秒执行
+              var curCount;//当前剩余秒数
+              var code = ""; //验证码
+              var codeLength = 4;//验证码长度
+              /*****************验证手机号**************/
+              $("#phone").keyup(function () {
+                  var re=/[^\0-9]/g;
+                  var phone = $("#phone").val();
+                  var $phone = $("#phone");
+                  if(re.test(phone)||getLength(phone)!=11)
+                  {
+                      $phone.parent().find(".login-inform").html("手机号格式错误");
+                      $phone.parent().addClass("has-error");
+
+                  }
+                  else {
+                      $phone.parent().find(".login-inform").html("");
+                      $phone.parent().removeClass("has-error");
+                      $phone.parent().addClass("has-success");
+                  }
+              })
+              $("#phone").blur(function () {
+
+                  var $phone = $("#phone");
+                  var phone = $phone.val();
+                  if(phone.length==0)
+                  {
+                      $phone.parent().find(".login-inform").html(" ");
+                      $phone.parent().removeClass("has-error has-success");
+                  }
+
+
+              })
+              /*****************发送消息*********************/
+              function SendMessage() {
+
+                  curCount = count;
+                  var phone = $("#phone").val();
+                  for(var i=1;i<=4;i++)
+                      code +=  parseInt(Math.random()*9).toString()
+                  $("#getCode").attr("disabled","true");
+                  $("#getCode").val("请在" + curCount + "秒内输入验证码");
+                  InterValObj = window.setInterval(SetRemainTime, 1000);
+                  $.ajax({
+                      type:"POST",
+                      dataType:"text",
+                      url:"../smscheck/",
+                      data:JSON.stringify({
+                          "phone":phone,
+                          "code":code
+                      }),
+                      error:function (XMLHttpRequest, textStatus, errorThrown) {
+                          alert(XMLHttpRequest.status);
+                          alert(XMLHttpRequest.readyState);
+                          alert(textStatus);
+
+                      }
+                  })
+              }
+              function SetRemainTime() {
+                  if (curCount == 0) {
+                      window.clearInterval(InterValObj);//停止计时器
+                      $("#getCode").removeAttr("disabled");//启用按钮
+                      $("#getCode").val("重新发送验证码");
+                      code = ""; //清除验证码。如果不清除，过时间后，输入收到的验证码依然有效
+                  }
+                  else {
+                      curCount--;
+                      $("#getCode").val("请在" + curCount + "秒内输入验证码");
+                  }
+              }
+              $("#getCode").bind("click",function () {
+                  SendMessage();
+              })
+              $("#submit").bind("click",function () {
+                  var curCode=$("#code").val();
+                  var phone = $("#phone").val();
+                  if(code == curCode.trim())
+                  {
+                    // window.location.href = "../register/";
+                    sessionStorage.setItem("phone",phone);
+                    alert(sessionStorage.getItem('phone'));
+                    window.location.href = "../register/";
+
+                  }else{
+                      alert("验证码错误");
+                  }
+              })
+              $("#back_btn").bind("click", function(){
+
+                window.location.href = "../start/"
+
+              })
+              })
+
+        </script>
+    </body>
+        </html>

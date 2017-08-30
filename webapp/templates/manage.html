@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>主页</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/top.css">
+</head>
+<body>
+<style>
+    .info-input{
+       border: 1px solid #999999;
+        width: 120px;
+    }
+    #tbody-tr .media-table-tr {
+        padding-top: 10px
+    }
+    #media-table {
+        border: 0px solid #E8E8E8;
+        border-left: none;
+        padding: 10px 10px
+    }
+
+    #media-table {
+        border-top: 2px solid #E8E8E8;
+        border-left: 1px solid #E8E8E8;
+        border-right: 1px solid #E8E8E8;
+        border-bottom: 1px solid #E8E8E8;
+    }
+    #media-table-thead {
+        padding-top: -20px;
+        border: 1px solid #E8E8E8;
+    }
+
+    #media-table-thead .media-table-tr {
+        border-top-style: 4px dotted FireBrick;
+    }
+    #media-table .media-table-tr {
+        color: grey
+    }
+
+    #tbody-tr img {
+        float: left;
+        padding: 5px
+    }
+
+    #tbody-tr p {
+        float: left;
+        padding: 5px
+    }
+
+    #tbody-tr i {
+        float: left;
+        padding: 10px
+    }
+
+    #tbody-tr
+    .normalfont {
+        text-align: center;
+        font-size: 14px;
+        color: #65c9b1
+    }
+    .next-page:active{
+        background-color: #aaa279;
+    }
+    .input-cal{
+        display: none;
+    }
+</style>
+<div>
+    <div class="col-xs-12" style="margin-top:50px;margin-bottom:50px;padding-left:5%;padding-right:5% ">
+        <!-- 最上 标题导航栏-->
+        <div class="container-fluid" style="background-color:rgba(70,181,164,0.2);margin-top:-30px;">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" style="margin-left:40px;font-size:16px">
+
+                    <li><a href="../form/">查看图书借阅书籍分析</a></li>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">查询</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">分类 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">科技</a></li>
+                            <li><a href="#">科技</a></li>
+                            <li><a href="#">科技</a></li>
+                            <li><a href="#">科技</a></li>
+                            <li><a href="#">科技</a></li>
+                            <li><a href="#">科技</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 表格主体-->
+        <table id="media-table" class="table  table-hover">
+            <thead id="media-table-thead">
+            <tr class="media-table-tr">
+                <th></th>
+                <th></th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>ISBN码</th>
+                <th>出版社</th>
+                <th>分类</th>
+                <th>库存</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <div class="shop-content">
+                <tbody class="book_list">
+                <tr class="media-table-tr input-cal" bgcolor="#ffffff">
+                    <td class="normalfont">
+                        <div class="shop-check">
+                            <i class="fa fa-close fa-lg close-input"></i>
+                        </div>
+                    </td>
+                    <td style="padding-bottom:-20px">
+                        <p class="td-p">11</p>
+                    </td>
+                    <td style="padding-bottom:-20px"><input type="text" name="bookName" class="info-input"></td>
+                    <td style="padding-bottom:-20px"><input type="text" name="bookAuthor" class="info-input"></td>
+                    <td style="padding-bottom:-20px"><input type="text" name="bookISBN" class="info-input"></td>
+                    <td style="padding-bottom:-20px"><input type="text" name="bookPublish" class="info-input"></td>
+                    <td style="padding-bottom:-20px"><input type="text" name="bookType" class="info-input"></td>
+                    <td style="padding-bottom:-20px"><input type="text" name="bookStock" class="info-input"></td>
+                    <td></td>
+                    <td> <button type="button" class="btn btn-primary btn-xs input-submit">确定</button></td>
+                </tr>
+                <!-- ----------------- ------------------------------------------------------------>
+                </tbody>
+            </div>
+        </table>
+        <button style="margin-top:-20px;margin-left:10px;" type="button" class="btn btn-success  btn-sm create-input">添加<i
+                style="margin-left:5px;" class="fa fa-plus-square-o fa-lg" aria-hidden="true"></i></button>
+
+        <!-- ------------下方分页栏----------------------->
+        <ul class="pagination" style="margin-left:80%;margin-top:-10px">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a href="javascript:;" class="next-page">1</a></li>
+            <li><a href="javascript:;"  class="next-page">2</a></li>
+            <li><a href="javascript:;"  class="next-page">3</a></li>
+            <li><a href="javascript:;"  class="next-page">4</a></li>
+            <li><a href="javascript:;"  class="next-page">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script>
+    (function () {
+      $(".change-stock").on("click",function () {
+
+          $(this).parent().parent().find(".stock").html($(this).parent().find("input").val());
+           $(this).parent().find("input").val("");
+   });
+      var page = 1;
+        function addEventListen() {
+            $("tbody").delegate(".shop-delete","click",function () {
+                $(this).parents(".media-table-tr").remove();
+            });
+            $(".create-input").bind("click",function(){
+                $(".input-cal").show();
+            });
+            $(".close-input").bind("click",function (){
+                $(".input-cal").hide();
+            });
+
+
+
+            $(".input-submit").bind("click",function () {
+                var bookName = $("input[name='bookName']").val();
+                var bookAuthor =$("input[name='bookAuthor']").val();
+                var bookISBN  = $("input[name='bookISBN']").val();
+                var bookPublish =$("input[name='bookPublish']").val();
+                var bookType =$("input[name='bookType']").val();
+                var bookStock= $("input[name='bookStock']").val();
+                $.ajax({
+                    url:"../addbooks/",
+                    type:"POST",
+                    data:{
+                       "bookName":bookName,
+                        "bookAuthor":bookAuthor,
+                        "bookISBN":bookISBN,
+                        "bookPublish":bookPublish,
+                        "bookType":bookType,
+                        "bookStock":bookStock
+                    },
+                    success:function (data) {
+                      if(data == "添加成功"){
+                        window.location.reload();
+                      }
+                      else{
+                        alert(data)
+                      }
+
+                    }
+                })
+            })
+        }
+        function getBookList(){
+          $.ajax({
+            url : "../getbooks/?page=" + page,
+            type : "GET",
+            data : {
+
+            },
+            dataType : "json",
+            success: function(data){
+              var html = "";
+              if(data[0].esg == "ok"){
+                $.each(data[0].result, function(i, item){
+                  html = html + '<tr class="media-table-tr" bgcolor="#ffffff">'+
+                          '<td class="normalfont">'+
+                          '<div class="shop-check"><input type="checkbox" class="shop-checked" checked="true">'+
+                          '</div>'+
+                          '</td>'+
+                          '<td style="padding-bottom:-20px">'+
+                          '<p class="td-p">11</p>'+
+                          '</td>'+
+                          '<td style="padding-bottom:-20px">'+item.title+'</td>'+
+                          '<td style="padding-bottom:-20px">'+item.author+'</td>'+
+                          '<td style="padding-bottom:-20px">'+item.isbn13 +'</td>'+
+                          '<td style="padding-bottom:-20px">'+item.publisher+'</td>'+
+                          '<td style="padding-bottom:-20px">'+item.tag__tag+'</td>'+
+                          '<td style="padding-bottom:-20px">'+item.count+'</td>'+
+                          '<td>'+
+                          '<div class="shop-delete">'+
+                          '<button type="button" class="btn btn-default btn-xs delete" >删除</button>'+
+                          '</div>'+
+                          '</td>'+
+                          '</tr>'
+                });
+                $(".book_list").prepend(html);
+                itemDelete();
+              }
+            }
+          })
+        }
+
+        function init() {
+            addEventListen();
+            getBookList();
+            $(".next-page").on("click",function () {
+                page = $(this).html();
+                getBookList();
+            })
+        }
+        init();
+    })();
+    function itemDelete(){
+      $(".delete").click(function(){
+        var bookName = $("input[name='bookName']").val();
+        var bookAuthor =$("input[name='bookAuthor']").val();
+        var bookISBN  = $("input[name='bookISBN']").val();
+        var bookPublish =$("input[name='bookPublish']").val();
+        var bookType =$("input[name='bookType']").val();
+        var bookStock= $("input[name='bookStock']").val();
+        $.ajax({
+          url: "../deletebooks/",
+          type: "POST",
+          data: {
+            "bookName":bookName,
+             "bookAuthor":bookAuthor,
+             "bookISBN":bookISBN,
+             "bookPublish":bookPublish,
+             "bookType":bookType,
+             "bookStock":bookStock
+          },
+          success:function(data){
+            $(this).parent().parent().remove();
+            alert(data);
+          }
+        })
+      });
+    }
+</script>
+</body>
+</html>

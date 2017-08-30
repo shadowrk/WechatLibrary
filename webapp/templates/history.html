@@ -1,0 +1,121 @@
+{% extends 'first.html' %}
+{% block title %} 历史 {% endblock %}
+
+{% block link %}
+  <style>
+    ul.timeline {
+      list-style-type: none;
+      background: url("img/22.png") repeat-y scroll 120px 0 transparent;
+      margin: 100px 0;
+      margin-left: -25px;
+      padding: 0;
+    }
+
+    ul.timeline li {
+      position: relative;
+      margin-left: 12px;
+      margin-bottom: 20px;
+    }
+
+    ul.timeline li .time {
+      position: absolute;
+      width: 90px;
+      text-align: right;
+      left: 0;
+      top: 10px;
+      color: #999;
+    }
+
+    ul.timeline li .version {
+      position: absolute;
+      width: 290px;
+      text-align: right;
+      left: -200px;
+      top: 30px;
+      font-size: 16px;
+      line-height: 20px;
+      color: #66bbb0;
+      overflow: hidden;
+    }
+
+    ul.timeline li .number {
+      position: absolute;
+
+      background: url("img/11.png") no-repeat scroll 0 0 transparent;
+      width: 30px;
+      height: 30px;
+      left: 97px;
+      line-height: 56px;
+      text-align: center;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    ul.timeline li.alt .number {
+      background-image: url("img/11.png");
+    }
+
+    ul.timeline li .content {
+      margin-left: 130px;
+      width: 68%;
+    }
+
+    ul.timeline li .content pre {
+      background-color: #66bbb0;
+
+      color: #fff;
+      font-size: 13px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    ul.timeline li.alt .content pre {
+      background-color: #66bbb0;
+    }
+  </style>
+  {% endblock %}
+  {% block content %}
+  <div>
+    <div style="width:100%;height:50px;background:#65c9b1;position: fixed; top: 0px; z-index: 10;">
+      <div style="vertical-align: middle; margin-top: 15px; text-align: center;"><span style="font-size:16px;color:rgba(255,255,255,0.8);">历史记录</span></div>
+    </div>
+    <div style="margin-left:-35px;margin-bottom:100px;" class="col-xs-12">
+      <ul class="timeline">
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+  <script>
+    $.ajax({
+      url: "../gethistory/",
+      async: false,
+      type: "GET",
+      dataType: "json",
+      success: function(data) {
+        var html = "";
+        var len =data.length;
+        $.each(data, function(i, item) {
+          var time = item.searchtime.split('-');
+           html += '<li class="book-take-item" style="overflow:hidden;">' +
+              '<div class="time">' + time[0] + '<br>' +time[1]+ '-' + time[2] + '</div>'+
+              '<div class="number"></div>' +
+              '<div class="content">' +
+              '<pre><div style="margin-left:0x;float:left;"><img style="width:65px;height:80px"src="' + item.image + '">' +
+              '</div><div style="margin-left:10px;float:left;width:1８0px;height:80px">' +
+              '<p>书名：'+item.title+' </p>' +
+              '<p>作者：'+item.author+'</p>' +
+              '</div></pre>'+
+              '<p hidden class="get_bookId">' + item.id + '</p>' +
+              '</div>' +
+              '</li>';
+
+        })
+          $(".timeline").append(html);
+        }
+    });
+  </script>
+{% endblock %}

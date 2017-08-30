@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/top.css">
+    <style>
+        .QRcode-wrap img{
+           width:   70%;
+           height: 70%;
+           max-width: 70%;
+           max-height: 70%;
+           display: block;
+          margin: 0 auto;
+       }
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="public-top"><p>我的借阅</p></div>
+    <p class="shop-pull">借书清单 <a href="">>></a></p>
+    <hr \>
+    <div class="shop-content">
+        <div class="shop-item">
+            <div class="shop-check"><input type="checkbox" class="shop-checked"></div>
+            <img src="img/person.jpg" alt="">
+            <div class="shop-info">
+                <h4>bookname</h4>
+                <p>ahthor</p>
+                <p>tag</p>
+                <p hidden class="count-book-id">1112</p>
+            </div>
+            <div class="shop-delet">
+                <p style="color: red">到期时间</p>
+            </div>
+        </div>
+        <div class="shop-item">
+
+            <div class="shop-check"><input type="checkbox" class="shop-checked"></div>
+            <img src="img/person.jpg" alt="">
+            <div class="shop-info">
+                <h4>bookname</h4>
+                <p>ahthor</p>
+                <p>tag</p>
+                <p hidden class="count-book-id">1113</p>
+            </div>
+            <div class="shop-delet">
+                <p style="color: red">到期时间</p>
+            </div>
+        </div>
+    </div>
+    <div class="shop-count">
+        <div class="shop-allCheck pull-left"><input type="checkbox" id="shop-allCheck"><p>全选</p></div>
+        <button class="btn  btn-primary pull-right settlement-all">归还</button>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">二维码</h4>
+            </div>
+            <div class="modal-body">
+              <div class="QRcode-wrap">
+                  <img src="1.jpg" alt="myQRcode" id="QRcode">
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary submit-change" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-nav col-xs-12">
+    <ul>
+        <a href=""><i  style=" margin-top: 2px;"  class="fa fa-home"><p>首页</p></i></a>
+        <a href=""><i style=" margin-top: 4px;" class="fa fa-telegram"><p>发现</p></i></a>
+        <a href=""><i style=" margin-top: 2px;" class="fa fa-cart-plus"><p>书单</p></i></a>
+        <a href=""><i style=" margin-top: 4px;" class="fa fa-user-circle-o"><p>个人</p></i></a>
+    </ul>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+
+    (function () {
+
+        var num =0;
+        var len =$(".shop-checked").length;
+
+        $("#shop-allCheck").change(function () {
+
+            var allcheck= $("#shop-allCheck");
+            if(allcheck.is(":checked"))
+            {
+                $.each($(".shop-checked"),function (i,item) {
+                    $(item).prop("checked",true);
+                });
+            }
+            else
+            {
+                $.each($(".shop-checked"),function (i,item) {
+                    $(item).prop("checked",false);
+                });
+            }});
+        $.ajax({
+            url:"",
+            type:"GET",
+            async:false,
+            dataType:"json",
+            success:function (data) {
+                var html="";
+                $.each(data,function (i,item) {
+                    html ='<div class="shop-item">'+
+                        '<div class="shop-check"><input type="checkbox" class="shop-checked" checked="true"></div>'+
+                        '<img src="'+item.src+'" alt="">'+
+                        '<div class="shop-info">'+
+                        '<h4>'+item.name+'</h4>'+
+                        '<p>'+item.author+'</p>'+
+                        '<p hidden class="count-book-id">'+item.id+'</p>'+
+                        '</div>'+
+                        '<div class="shop-delet">'+
+                        '<p style="color: red">'+item.time+'</p>'+
+                        '</div></div>';
+                })
+                $(".shop-content").append(html);
+                $(".shop-checked").bind("change",function () {
+                    $.each($(".shop-checked"),function (i,item) {
+                        if($(item).is(":checked"))
+                        {
+                            num++;
+                        }
+                    });
+                    if(num == 2)
+                    {
+                        $("#shop-allCheck").prop("checked",true);
+                    }
+                    else
+                    {
+                        $("#shop-allCheck").prop("checked",false);
+                    }
+                    num = 0;
+                });
+
+            }
+
+        });
+        $(".settlement-all").bind("click",function () {
+            var h = [];
+            $.each($(".shop-checked"),function (i,item) {
+                if($(item).is(":checked"))
+                {
+                    h.push($(item).parent().parent().find(".count-book-id").html());
+                }
+            });
+
+            $.ajax({
+                url:"../getcode/",
+                type:"GET",
+                data: {
+                    'bookIds': h,
+                    'stats': 1
+                },
+                dataType:"TEXT",
+                success:function (data) {
+                  url = '/static/qrcode/' + data + '.png'
+                  $("#QRcode").attr("src",url);
+                  $('#myModal').modal('show');
+                }
+            })
+        });
+    })();
+</script>
+
+</body>
+
+</html>

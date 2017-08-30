@@ -1,0 +1,110 @@
+{% extends 'first.html' %}
+{% block title %}
+我的预定
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="public-top"><p>我的预定</p></div>
+    <p class="shop-pull">预定书目 <a href="">>></a></p>
+    <hr \>
+    <div class="shop-content">
+
+
+        <div class="shop-count">
+            <div class="shop-allCheck pull-left"><input type="checkbox" id="shop-allCheck"><p>全选</p></div>
+            <button class="btn  btn-primary pull-right settlement-all">借阅</button>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+
+        (function () {
+            var num =0;
+            var len =$(".shop-checked").length;
+            $("#shop-allCheck").change(function () {
+
+                var allcheck= $("#shop-allCheck");
+                if(allcheck.is(":checked"))
+                {
+                    $.each($(".shop-checked"),function (i,item) {
+                        $(item).prop("checked",true);
+                    });
+                }
+                else
+                {
+                    $.each($(".shop-checked"),function (i,item) {
+                        $(item).prop("checked",false);
+                    });
+                }});
+            $.ajax({
+                url:"../getmyreverse/",
+                type:"GET",
+                async:false,
+                dataType:"json",
+                success:function (data) {
+                    var html="";
+                    $.each(data,function (i,item) {
+                        html = html + '<div class="shop-item">'+
+                            '<div class="shop-check"><input type="checkbox" class="shop-checked" checked="true"></div>'+
+                            '<img src="'+item.book__image+'" alt="">'+
+                            '<div class="shop-info">'+
+                            '<h4>'+item.book__title+'</h4>'+
+                            '<p>'+item.book__author+'</p>'+
+                            '<p hidden class="count-book-id">'+item.book__id+'</p>'+
+                            '</div>'+
+                            '<div class="shop-delet">'+
+                            '<p style="color: green">'+item.re_time+'</p>'+
+                            '</div></div>';
+                    })
+                    $(".shop-content").append(html);
+                    $(".shop-checked").bind("change",function () {
+                        $.each($(".shop-checked"),function (i,item) {
+                            if($(item).is(":checked"))
+                            {
+                                num++;
+                            }
+                        });
+                        if(num == 2)
+                        {
+                            $("#shop-allCheck").prop("checked",true);
+                        }
+                        else
+                        {
+                            $("#shop-allCheck").prop("checked",false);
+                        }
+                        num = 0;
+                    });
+
+                }
+
+            });
+            $(".settlement-all").bind("click",function () {
+                var h = [];
+                $.each($(".shop-checked"),function (i,item) {
+                    if($(item).is(":checked"))
+                    {
+                        h.push($(item).parent().parent().find(".count-book-id").html());
+                    }
+                });
+                $.ajax({
+                    url:"",
+                    type:"GET",
+                    data: {
+                        'bookNum':h.length
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if(data == true){
+                            $.post("....",{'bookId':h},function () {
+                                alert("加入借书栏成功")
+                            })
+                        }else{
+                            alert("您借的的图书已超过两本，请先归还后载借阅")
+                        }
+                    }
+                })
+            });
+        })();
+    </script>
+{% endblock %}

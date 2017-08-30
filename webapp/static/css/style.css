@@ -1,0 +1,81 @@
+
+body {
+    background-color: rgb(124, 225, 202);
+    /* background-size:cover;*/
+    font-size: 16px;
+}
+.form{
+    background: rgba(255,255,255,0.2);
+    width:100%;
+    margin:100px auto;}
+.form-group2{
+	margin-bottom:0px;
+	}
+	
+#login_form{display: block;}
+/* #register_form{display: none;}*/
+.fa{display: inline-block;
+    top: 28px;
+    left: 24px;
+    position: relative;
+    color: #ccc;}
+input[type="text"],
+input[type="password"]{
+    width: 80%;
+	height:38px;
+    margin-left: 20px;
+	margin-bottom:5px;
+}
+.checkbox{padding-left:21px;}
+.form-title{
+    margin-left: 20px;
+}
+.login-form .form-group:nth-child(3){
+    margin-left: 20px;
+}
+.login-form .form-group:nth-child(4){
+    margin-right: 20px;
+}
+.sign-right{
+    margin-left:20%;
+}
+.chat{
+   position: relative;
+    top: 0;
+    left: -30px;
+    color:#05af10
+}
+.hrr{
+    width:85%;
+    margin-left: -3%;
+}
+.hobby-item:nth-child(1){
+    /*margin-left: 20px;*/
+}
+.hobby-item{
+    width: 16%;
+	font-size:1px;
+    padding: 2px 3px 2px 3px;
+    float: left;
+	   color:#5a5b5b;
+}
+.hobby-item input[type="checkbox"]{
+    margin-left: 8px;
+   border-radius: 5px;
+   border:1px solid #000;
+
+
+}
+.hobby-view{
+	width:80%;
+	height:40px;
+	margin-left:65px;
+	position:relative;
+}
+.buttommargin{
+	
+	margin-left:5px;
+	margin-right:6px;"
+}
+
+
